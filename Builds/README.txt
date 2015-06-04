@@ -1,7 +1,12 @@
-SceneJect.Editor.dll belongs within the Editor folder in Unity.
+## How To Import Builds
 
-SceneJect.dll belongs within the Assets directory. I'd recommend you put it in a DLL or DLLs folder.
+# Manual
+- SceneJect.Editor.dll belongs within the Editor folder in Unity.
 
-Additionally, if you do not import the package and instead do this manually you will need the AutoFac dll located in SceneJect\libs\AutoFac for Unity
+- SceneJect.dll belongs within the Assets directory. I'd recommend you put it in a DLL or DLLs folder.
 
-Within this directory there are .unitypackage files that can import SceneJect into your project automatically for you.
+- Additionally, if you do not import the package and instead do this manually you will need the AutoFac dll located in SceneJect\libs\AutoFac for Unity
+
+# Automatic
+
+- Within this directory there are .unitypackage files that can import SceneJect into your project automatically for you.
