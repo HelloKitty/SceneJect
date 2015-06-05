@@ -20,7 +20,8 @@ namespace SceneJect
 
 		protected RegisterationType getFlags()
 		{
-			return _RegisterFlags.Aggregate(RegisterationType.Default, (f, s) => f | s);
+			return _RegisterFlags.Distinct()
+				.Aggregate(RegisterationType.Default, (f, s) => f | s);
 		}
 	}
 }
