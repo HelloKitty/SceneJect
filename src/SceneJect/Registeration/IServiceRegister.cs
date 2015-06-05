@@ -9,5 +9,8 @@ namespace SceneJect
 	{
 		void Register<T>(T instance, RegisterationType registerationFlags, Type registerAs = null)
 			where T : class;
+
+		void Register<T>(RegisterationType registerationFlags, Type registerAs = null)
+			where T : class;
 	}
 }

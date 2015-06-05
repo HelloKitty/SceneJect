@@ -82,5 +82,35 @@ namespace SceneJect
 			if (registerationFlags.HasFlag(RegisterationType.ExternallyOwned))
 				chainInstance.ExternallyOwned();
 		}
+
+
+		public void Register<T>(RegisterationType registerationFlags, Type registerAs = null) where T : class
+		{
+			if (locked)
+				throw new Exception(typeof(T).ToString() + " tried to register with this container but did so after its generation.");
+
+			var chainInstance = builder.RegisterType<T>();
+
+			if (registerAs != null)
+				chainInstance.As(registerAs);
+
+			if (registerationFlags.HasFlag(RegisterationType.SingleInstance))
+				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+					throw new Exception(typeof(T).ToString() + " tried to register as both single instance and per dependancy.");
+				else
+					chainInstance.SingleInstance();
+			else
+				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+					chainInstance.InstancePerDependency();
+
+			if (registerationFlags.HasFlag(RegisterationType.AsImplementedInterface))
+				chainInstance.AsImplementedInterfaces();
+
+			if (registerationFlags.HasFlag(RegisterationType.AsSelf))
+				chainInstance.AsSelf();
+
+			if (registerationFlags.HasFlag(RegisterationType.ExternallyOwned))
+				chainInstance.ExternallyOwned();
+		}
 	}
 }
