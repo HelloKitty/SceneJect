@@ -19,8 +19,8 @@ public class ExampleClass : MonoBehaviour
 
 	void Awake()
 	{
-		//It is best NOT to reference any of the above dependencies in Awake. Unless you modification the script execution order
-		//it cannot be determined if these depedencies will have been injections before this method body is executed.
+		//It is best NOT to reference any of the above dependencies in Awake. Unless you modify the script execution order
+		//it cannot be determined if these depedencies will have been injected before this method body is executed.
 	}
 
 	void Start()
