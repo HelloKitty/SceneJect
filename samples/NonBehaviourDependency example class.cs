@@ -3,13 +3,13 @@ using SceneJect;
 
 //You'll see that this class does not require the [Injectee] attribute.
 //In fact, at the time of writing this example you should not expect the SceneInjector to
-//inject depedencies into this class. I'd recommend, until announced, you avoid doing so.
+//inject depedencies into this class. I'd recommend, until announced, you avoid assuming it will.
 public class ExampleClass : NonBehaviourDepdency //Must inherit from this class
 {
 	public override void Register(IServiceRegister register)
 	{
 		//Let's supply an instance of some made-up Resource management class that is a singleton.
-		//get flags is a protected method that supplies the inspector set flags enum for registering.
+		//get flags is a protected method that supplies the flag enum setup in the inspector for registering.
 		register.Register(ResourceLoader.instance, this.getFlags()); //This is all that is needed.
 
 		//The below is an example of another way to register a depedency. It is not another line that is required when the above exists.
