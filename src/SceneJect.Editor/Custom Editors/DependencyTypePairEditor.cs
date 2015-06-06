@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SceneJect.CustomEditors
 {
 	[CustomPropertyDrawer(typeof(DependencyTypePair))]
-	public class DependancyTypePairEditor : PropertyDrawer
+	public class DependencyTypePairEditor : PropertyDrawer
 	{
 		private Dictionary<Type, IEnumerable<Type>> cachedTypeDictionary = new Dictionary<Type, IEnumerable<Type>>();
 		private Dictionary<Type, IEnumerable<string>> cachedAssemblyQualifiedNames = new Dictionary<Type, IEnumerable<string>>();

@@ -7,10 +7,10 @@ namespace SceneJect
 {
 	public interface IServiceRegister
 	{
-		void Register<T>(T instance, RegisterationType registerationFlags, Type registerAs = null)
+		void Register<T>(T instance, RegistrationType registerationFlags, Type registerAs = null)
 			where T : class;
 
-		void Register<T>(RegisterationType registerationFlags, Type registerAs = null)
+		void Register<T>(RegistrationType registerationFlags, Type registerAs = null)
 			where T : class;
 	}
 }

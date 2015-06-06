@@ -53,7 +53,7 @@ namespace SceneJect
 			_Container = builder.Build();
 		}
 
-		public void Register<T>(T instance, RegisterationType registerationFlags, Type registerAs = null)
+		public void Register<T>(T instance, RegistrationType registerationFlags, Type registerAs = null)
 			where T : class
 		{
 			if (locked)
@@ -64,27 +64,27 @@ namespace SceneJect
 			if (registerAs != null)
 				chainInstance.As(registerAs);
 
-			if (registerationFlags.HasFlag(RegisterationType.SingleInstance))
-				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+			if (registerationFlags.HasFlag(RegistrationType.SingleInstance))
+				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
 					throw new Exception(typeof(T).ToString() + " tried to register as both single instance and per dependancy.");
 				else
 					chainInstance.SingleInstance();
 			else
-				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
 					chainInstance.InstancePerDependency();
 
-			if (registerationFlags.HasFlag(RegisterationType.AsImplementedInterface))
+			if (registerationFlags.HasFlag(RegistrationType.AsImplementedInterface))
 				chainInstance.AsImplementedInterfaces();
 
-			if (registerationFlags.HasFlag(RegisterationType.AsSelf))
+			if (registerationFlags.HasFlag(RegistrationType.AsSelf))
 				chainInstance.AsSelf();
 
-			if (registerationFlags.HasFlag(RegisterationType.ExternallyOwned))
+			if (registerationFlags.HasFlag(RegistrationType.ExternallyOwned))
 				chainInstance.ExternallyOwned();
 		}
 
 
-		public void Register<T>(RegisterationType registerationFlags, Type registerAs = null) where T : class
+		public void Register<T>(RegistrationType registerationFlags, Type registerAs = null) where T : class
 		{
 			if (locked)
 				throw new Exception(typeof(T).ToString() + " tried to register with this container but did so after its generation.");
@@ -94,22 +94,22 @@ namespace SceneJect
 			if (registerAs != null)
 				chainInstance.As(registerAs);
 
-			if (registerationFlags.HasFlag(RegisterationType.SingleInstance))
-				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+			if (registerationFlags.HasFlag(RegistrationType.SingleInstance))
+				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
 					throw new Exception(typeof(T).ToString() + " tried to register as both single instance and per dependancy.");
 				else
 					chainInstance.SingleInstance();
 			else
-				if (registerationFlags.HasFlag(RegisterationType.InstancePerDependency))
+				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
 					chainInstance.InstancePerDependency();
 
-			if (registerationFlags.HasFlag(RegisterationType.AsImplementedInterface))
+			if (registerationFlags.HasFlag(RegistrationType.AsImplementedInterface))
 				chainInstance.AsImplementedInterfaces();
 
-			if (registerationFlags.HasFlag(RegisterationType.AsSelf))
+			if (registerationFlags.HasFlag(RegistrationType.AsSelf))
 				chainInstance.AsSelf();
 
-			if (registerationFlags.HasFlag(RegisterationType.ExternallyOwned))
+			if (registerationFlags.HasFlag(RegistrationType.ExternallyOwned))
 				chainInstance.ExternallyOwned();
 		}
 	}

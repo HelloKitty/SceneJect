@@ -51,7 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom Editors\DependancyTypePairEditor.cs" />
+    <Compile Include="Custom Editors\DependencyTypePairEditor.cs" />
     <Compile Include="Extensions\SerializedPropertyExt.cs" />
     <Compile Include="Custom Editors\SceneJectorEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ namespace SceneJect
 {
 	[Serializable]
 	[Flags]
-	public enum RegisterationType : byte
+	public enum RegistrationType : byte
 	{
 		/// <summary>
 		/// This is the same as only having the InstancePerDepdency flag enabled.

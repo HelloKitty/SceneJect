@@ -50,15 +50,15 @@
     <Compile Include="3.5 Net Helpers\EnumExt.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\InjecteeAttribute.cs" />
-    <Compile Include="Registeration\AutoFacContainerWrapper.cs" />
-    <Compile Include="Registeration\DependencyTypePair.cs" />
+    <Compile Include="Registration\AutoFacContainerWrapper.cs" />
+    <Compile Include="Registration\DependencyTypePair.cs" />
     <Compile Include="Injection\InjecteeLocator.cs" />
     <Compile Include="Injection\IResolver.cs" />
-    <Compile Include="Registeration\IServiceRegister.cs" />
-    <Compile Include="Registeration\NonBehaviourDependency.cs" />
+    <Compile Include="Registration\IServiceRegister.cs" />
+    <Compile Include="Registration\NonBehaviourDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Injection\Injector.cs" />
-    <Compile Include="Registeration\RegisterationType.cs" />
+    <Compile Include="Registration\RegistrationType.cs" />
     <Compile Include="Injection\SceneJector.cs" />
   </ItemGroup>
   <ItemGroup />

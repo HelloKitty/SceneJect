@@ -9,19 +9,19 @@ namespace SceneJect
 	public abstract class NonBehaviourDependency : MonoBehaviour
 	{
 		[SerializeField]
-		private List<RegisterationType> _RegisterFlags;
+		private List<RegistrationType> _RegisterFlags;
 
-		protected IEnumerable<RegisterationType> registerFlags
+		protected IEnumerable<RegistrationType> registerFlags
 		{
 			get { return _RegisterFlags; }
 		}
 
 		public abstract void Register(IServiceRegister register);
 
-		protected RegisterationType getFlags()
+		protected RegistrationType getFlags()
 		{
 			return _RegisterFlags.Distinct()
-				.Aggregate(RegisterationType.Default, (f, s) => f | s);
+				.Aggregate(RegistrationType.Default, (f, s) => f | s);
 		}
 	}
 }
