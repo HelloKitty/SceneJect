@@ -1,1 +1,1 @@
-xbuild ./Testity.sln /p:DebugSymbols=False
+xbuild ./SceneJect.sln /p:DebugSymbols=False
