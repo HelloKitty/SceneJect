@@ -107,38 +107,6 @@ namespace SceneJect.CustomEditors
 			property.FindPropertyRelative("_SelectedType").stringValue = cachedFullTypeNamesForBehaviour[index];
 		}
 
-		//This is old code that used to read the array.
-		//Don't delete it so it can be referenced if we need to again in the future.
-		//It's quite convoluted but some code that this was based on can be found here http://answers.unity3d.com/questions/682932/using-generic-list-with-serializedproperty-inspect.html
-		/*SerializedProperty arrayProp = property.FindPropertyRelative("_ImplementedTypes");
-
-		if (!arrayProp.isArray)
-		{
-			Debug.LogError("_ImplementedTypes on " + typeof(DependencyTypePair).ToString() + " is not an array contained within the SerializedProperty.");
-			return;
-		}
-
-		arrayProp.Next(true);//type
-		arrayProp.Next(true);//arraysize
-
-		int arraySize = arrayProp.intValue;
-
-		if (arraySize == 0) //The size should never be zero technically.
-			return;
-
-		cachedTypeStrings = new string[arraySize];
-
-		arrayProp.Next(true);//moves to first val
-
-		for (int i = 0; i < arraySize; i++)
-		{
-			//Debug.Log("Index: " + i + " found: " + arrayProp.stringValue);
-			cachedTypeStrings[i] = arrayProp.stringValue;
-
-			if (i < arraySize - 1)
-				arrayProp.Next(false);
-		}*/
-
 		private IEnumerable<Type> FindTypes(MonoBehaviour b)
 		{
 			Type t = b.GetType();
