@@ -2,7 +2,13 @@
 
   SceneJect is a Unity3D scene-based dependency injection library based on AutoFac. Using AutoFac as its Inversion of Control container it provides a way for you to supply dependencies to other MonoBehaviours that exist within the scene at editor time. These dependencies can be both either MonoBehaviours that exist within the scene or non-MonoBehaviour inheriting objects that are registered via a provided registration class.
 
-## What do I do?
+###Builds
+
+Linux/Mono: [![Build Status](https://travis-ci.org/HelloKitty/SceneJect.svg?branch=master)](https://travis-ci.org/HelloKitty/SceneJect)
+
+Windows: Run locally
+
+## How to use SceneJect
 
 ### Basic Classes
 
