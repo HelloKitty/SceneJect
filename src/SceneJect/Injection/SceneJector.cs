@@ -20,7 +20,7 @@ namespace SceneJect
 		private void Awake()
 		{
 			if(!VerifyTypePairs(typePairs))
-				throw new NullReferenceException(typeof(SceneJector).ToString() + " has a malformed " + typeof(DependencyTypePair).ToString() +
+				throw new NullReferenceException(nameof(SceneJector) + " has a malformed " + nameof(DependencyTypePair) +
 						" registered. Must contain a valid MonoBehaviour and selected Type.");
 
 			container = new AutoFacContainerWrapper(typePairs);
@@ -44,6 +44,8 @@ namespace SceneJect
 		private void InjectDependencies<T>(T containerService)
 			where T : IResolver, IServiceRegister
 		{
+			//the IoC container visits each dependency registeration object
+			//This allows the registeration logic to be handled differently
 			foreach (var nbd in nonBehaviourDependencies)
 				nbd.Register(containerService);
 
