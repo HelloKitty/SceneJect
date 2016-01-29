@@ -1,1 +1,1 @@
-mono ../testrunner/NUnit.Runners.3.0.1/tools/nunit3-console.exe ./SceneJect.Tests/bin/Debug/SceneJect.Tests.dll
+mono ./testrunner/NUnit.Console.3.0.1/tools/nunit3-console.exe ./SceneJect.Tests/bin/Debug/SceneJect.Tests.dll
