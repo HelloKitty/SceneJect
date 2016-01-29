@@ -47,7 +47,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="3.5 Net Helpers\EnumExt.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\InjecteeAttribute.cs" />
     <Compile Include="Registration\AutoFacContainerWrapper.cs" />
