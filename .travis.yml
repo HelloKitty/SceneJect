@@ -3,6 +3,7 @@ solution: ./SceneJect.sln
 
 install:
   - nuget install NUnit.Runners -Version 3.0.1 -OutputDirectory tests/testrunner
+  - nuget restore SceneJect.sln
 
 before_script:
   - chmod +x ./lib/BuildDependencies.sh
