@@ -1,6 +1,6 @@
 # SceneJect
 
-  SceneJect is a Unity3D scene-based dependency injection library based on AutoFac. Using AutoFac as its Inversion of Control container it provides a way for you to supply dependencies to other MonoBehaviours that exist within the scene at editor time. These dependencies can be both either MonoBehaviours that exist within the scene or non-MonoBehaviour inheriting objects that are registered via a provided registration class.
+  SceneJect is a Unity3D scene-based dependency injection library that relies on third party IoC container libraries. Using these as its Inversion of Control container it provides a way for you to supply dependencies to other MonoBehaviours that exist within the scene at editor time. These dependencies can be both either MonoBehaviours that exist within the scene or non-MonoBehaviour inheriting objects that are registered via a provided registration class.
 
 ###Builds
 
@@ -31,7 +31,7 @@ Windows: Run locally
 
 ## What if the dependency isn't a MonoBehaviour?
   
-  SceneJect also covers cases for when your scene's MonoBehaviours require a dependency but the dependency you've written, and want to supply, isn't a MonoBehaviour derived object itself and thus cannot be rigged up directly in the editor via SceneJector. Although it's not difficult to register this sort of dependency it is still more complicated to do than dragging a MonoBehaviour in the scene onto the list and setting the register Type. One benefit of doing this is you're given more control over how this dependency is registered with the underlying AutoFac IoC container and dependencies that aren't logically MonoBehaviours don't have to be forced to derive from MonoBehaviour.
+  SceneJect also covers cases for when your scene's MonoBehaviours require a dependency but the dependency you've written, and want to supply, isn't a MonoBehaviour derived object itself and thus cannot be rigged up directly in the editor via SceneJector. Although it's not difficult to register this sort of dependency it is still more complicated to do than dragging a MonoBehaviour in the scene onto the list and setting the register Type. One benefit of doing this is you're given more control over how this dependency is registered with the underlying IoC container and dependencies that aren't logically MonoBehaviours don't have to be forced to derive from MonoBehaviour.
   
 ### Classes
 
