@@ -12,6 +12,7 @@ namespace SceneJect.Common
 		public abstract void Register<T>(T instance, RegistrationType registerationFlags, Type registerAs = null) where T : class;
 
 		public abstract object Resolve(Type t);
-		public abstract T Resolve<T>();
+		public abstract T Resolve<T>()
+			where T : class;
 	}
 }

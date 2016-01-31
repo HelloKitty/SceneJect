@@ -27,6 +27,7 @@ namespace Sceneject.Autofac
 		}
 
 		public T Resolve<T>()
+			where T : class
 		{
 			if (!locked)
 				Build();
