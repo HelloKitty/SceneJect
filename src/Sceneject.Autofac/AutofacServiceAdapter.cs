@@ -4,27 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Sceneject.Autofac
 {
-	public class AutofacServiceAdapter : IResolver, IServiceRegister
+	public class AutofacServiceAdapter : MonoBehaviour, IResolver, IServiceRegister
 	{
 		private IContainer _Container = null;
 
-		private readonly ContainerBuilder builder;
+		private readonly ContainerBuilder builder = new ContainerBuilder();
 
-		private bool locked;
-
-		public AutofacServiceAdapter(IEnumerable<DependencyTypePair> typePairs)
-		{
-			builder = new ContainerBuilder();
-			locked = false;
-
-			foreach (DependencyTypePair pair in typePairs)
-			{
-				builder.RegisterInstance(pair.Behaviour).As(pair.SelectedType).ExternallyOwned();
-			}
-		}
+		private bool locked = false;
 
 		public T Resolve<T>()
 			where T : class
@@ -40,6 +30,12 @@ namespace Sceneject.Autofac
 
 		public object Resolve(Type t)
 		{
+			if (t == null)
+				throw new ArgumentNullException(nameof(t), "Cannot resolve a null type.");
+
+			if (t.IsValueType)
+				throw new InvalidOperationException("Cannot resolve value types: " + t.ToString());
+
 			if (!locked)
 				Build();
 
