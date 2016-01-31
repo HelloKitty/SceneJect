@@ -7,8 +7,8 @@
     <ProjectGuid>{3323C585-D3EC-4D52-801A-B4F2B508B3EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SceneJect.Tests</RootNamespace>
-    <AssemblyName>SceneJect.Tests</AssemblyName>
+    <RootNamespace>SceneJect.Common.Tests</RootNamespace>
+    <AssemblyName>SceneJect.Common.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

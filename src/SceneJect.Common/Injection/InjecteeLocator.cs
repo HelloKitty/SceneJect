@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SceneJect
+namespace SceneJect.Common
 {
 	/// <summary>
 	/// Providers a locator object that will find and produce an <see cref="IEnumerable"/> of objects that are targeted with the <see cref="InjecteeAttribute"/> attribute.

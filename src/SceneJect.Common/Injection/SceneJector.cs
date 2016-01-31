@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SceneJect
+namespace SceneJect.Common
 {
 	public sealed class SceneJector : MonoBehaviour
 	{
@@ -20,7 +20,7 @@ namespace SceneJect
 		private void Awake()
 		{
 			if(!VerifyTypePairs(typePairs))
-				throw new NullReferenceException(nameof(SceneJector) + " has a malformed " + nameof(DependencyTypePair) +
+				throw new InvalidOperationException(nameof(SceneJector) + " has a malformed " + nameof(DependencyTypePair) +
 						" registered. Must contain a valid MonoBehaviour and selected Type.");
 
 			container = new AutoFacContainerWrapper(typePairs);
@@ -30,15 +30,7 @@ namespace SceneJect
 
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
 		{
-			foreach (var dtp in typePairs)
-			{
-				if (dtp.Behaviour == null || dtp.SelectedType == null)
-				{
-					return false;
-				}
-			}
-
-			return true;
+			return typePairs.Aggregate(true, (x, y) => x && y.isInitialized());
 		}
 
 		private void InjectDependencies<T>(T containerService)

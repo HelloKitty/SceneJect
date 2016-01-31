@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SceneJect\SceneJect.csproj">
+    <ProjectReference Include="..\SceneJect.Common\SceneJect.Common.csproj">
       <Project>{35ac7db7-7233-47e9-a909-907879356cc1}</Project>
-      <Name>SceneJect</Name>
+      <Name>SceneJect.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

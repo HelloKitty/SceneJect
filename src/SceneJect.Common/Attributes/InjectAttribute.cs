@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SceneJect
+namespace SceneJect.Common
 {
 	/// <summary>
 	/// Attribute that should target fields or properties that require a dependency be injected.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SceneJect
+namespace SceneJect.Common
 {
 	[Serializable]
 	public class DependencyTypePair : PropertyAttribute
@@ -33,5 +33,16 @@ namespace SceneJect
 				return Type.GetType(_SelectedType);
 			}
 		}
+
+		public DependencyTypePair(MonoBehaviour behaviour, Type type)
+		{
+			_Behaviour = behaviour;
+			_SelectedType = type.AssemblyQualifiedName;
+		}
+
+		public bool isInitialized()
+		{
+			return Behaviour != null && SelectedType != null;
+        }
 	}
 }

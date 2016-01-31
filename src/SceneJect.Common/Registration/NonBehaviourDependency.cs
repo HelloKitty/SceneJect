@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SceneJect
+namespace SceneJect.Common
 {
 	public abstract class NonBehaviourDependency : MonoBehaviour
 	{

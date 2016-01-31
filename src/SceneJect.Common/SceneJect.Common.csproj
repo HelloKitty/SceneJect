@@ -7,8 +7,8 @@
     <ProjectGuid>{35AC7DB7-7233-47E9-A909-907879356CC1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SceneJect</RootNamespace>
-    <AssemblyName>SceneJect</AssemblyName>
+    <RootNamespace>SceneJect.Common</RootNamespace>
+    <AssemblyName>SceneJect.Common</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
