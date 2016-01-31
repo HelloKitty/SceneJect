@@ -12,5 +12,7 @@ namespace SceneJect.Common
 
 		void Register<T>(RegistrationType registerationFlags, Type registerAs = null)
 			where T : class;
+
+		void Register(DependencyTypePair pair);
 	}
 }

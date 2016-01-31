@@ -15,7 +15,8 @@ namespace SceneJect.Common
 		[SerializeField]
 		private List<NonBehaviourDependency> nonBehaviourDependencies;
 
-		private AutoFacContainerWrapper container;
+		[SerializeField]
+		private ContainerServiceProvider containerServiceProvider;
 
 		private void Awake()
 		{
@@ -23,29 +24,40 @@ namespace SceneJect.Common
 				throw new InvalidOperationException(nameof(SceneJector) + " has a malformed " + nameof(DependencyTypePair) +
 						" registered. Must contain a valid MonoBehaviour and selected Type.");
 
-			container = new AutoFacContainerWrapper(typePairs);
+			if (containerServiceProvider == null)
+				throw new ArgumentNullException(nameof(containerServiceProvider), "Cannot have a null provider for container services. " + nameof(SceneJector) + " requires this for DI.");
 
-			InjectDependencies(container);
+			RegisterDependencies(containerServiceProvider);
+			InjectDependencies(containerServiceProvider);
 		}
 
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
 		{
-			return typePairs.Aggregate(true, (x, y) => x && y.isInitialized());
+			//Don't need to check if it's empty
+			if (pairs.Count() == 0)
+				return true;
+			else
+				return typePairs.Aggregate(true, (x, y) => x && y.isInitialized());
 		}
 
-		private void InjectDependencies<T>(T containerService)
-			where T : IResolver, IServiceRegister
+		private void RegisterDependencies(IServiceRegister register)
 		{
+			foreach (DependencyTypePair dtp in typePairs)
+				register.Register(dtp);
+
 			//the IoC container visits each dependency registeration object
 			//This allows the registeration logic to be handled differently
 			foreach (var nbd in nonBehaviourDependencies)
-				nbd.Register(containerService);
+				nbd.Register(register);
+		}
 
+		private void InjectDependencies(IResolver resolver)
+		{
 			InjecteeLocator<MonoBehaviour> behaviours = new InjecteeLocator<MonoBehaviour>();
 
 			foreach(MonoBehaviour b in behaviours)
 			{
-				Injector injector = new Injector(b, containerService);
+				Injector injector = new Injector(b, resolver);
 
 				injector.Inject();
 			}

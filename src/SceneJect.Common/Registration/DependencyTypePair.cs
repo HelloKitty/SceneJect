@@ -7,12 +7,12 @@ using UnityEngine;
 namespace SceneJect.Common
 {
 	[Serializable]
-	public class DependencyTypePair : PropertyAttribute
+	public class DependencyTypePair
 	{
 		[SerializeField]
 		private MonoBehaviour _Behaviour;
 
-		internal MonoBehaviour Behaviour
+		public MonoBehaviour Behaviour
 		{
 			get { return _Behaviour; }
 		}
@@ -26,7 +26,7 @@ namespace SceneJect.Common
 		[SerializeField]
 		private int _SelectedPopupIndex;
 
-		internal Type SelectedType
+		public Type SelectedType
 		{
 			get 
 			{ 

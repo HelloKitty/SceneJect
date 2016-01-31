@@ -1,12 +1,13 @@
 ﻿using Autofac;
+using SceneJect.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SceneJect.Common
+namespace Sceneject.Autofac
 {
-	public class AutoFacContainerWrapper : IResolver, IServiceRegister
+	public class AutofacServiceAdapter : IResolver, IServiceRegister
 	{
 		private IContainer _Container = null;
 
@@ -14,12 +15,12 @@ namespace SceneJect.Common
 
 		private bool locked;
 
-		public AutoFacContainerWrapper(IEnumerable<DependencyTypePair> typePairs)
+		public AutofacServiceAdapter(IEnumerable<DependencyTypePair> typePairs)
 		{
 			builder = new ContainerBuilder();
 			locked = false;
 
-			foreach(DependencyTypePair pair in typePairs)
+			foreach (DependencyTypePair pair in typePairs)
 			{
 				builder.RegisterInstance(pair.Behaviour).As(pair.SelectedType).ExternallyOwned();
 			}
@@ -71,7 +72,7 @@ namespace SceneJect.Common
 					chainInstance.SingleInstance();
 			else
 				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
-					chainInstance.InstancePerDependency();
+				chainInstance.InstancePerDependency();
 
 			if (registerationFlags.HasFlag(RegistrationType.AsImplementedInterface))
 				chainInstance.AsImplementedInterfaces();
@@ -101,7 +102,7 @@ namespace SceneJect.Common
 					chainInstance.SingleInstance();
 			else
 				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
-					chainInstance.InstancePerDependency();
+				chainInstance.InstancePerDependency();
 
 			if (registerationFlags.HasFlag(RegistrationType.AsImplementedInterface))
 				chainInstance.AsImplementedInterfaces();
@@ -111,6 +112,13 @@ namespace SceneJect.Common
 
 			if (registerationFlags.HasFlag(RegistrationType.ExternallyOwned))
 				chainInstance.ExternallyOwned();
+		}
+
+		public void Register(DependencyTypePair pair)
+		{
+			//pairs are externally owned MonoBehaviours that exist in the editor
+			//Register them as such and as the instance to provide
+			builder.RegisterInstance(pair.Behaviour).As(pair.SelectedType).ExternallyOwned();
 		}
 	}
 }
