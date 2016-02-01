@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="UnitTests\InjecteeLocatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\InjectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
