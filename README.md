@@ -17,6 +17,7 @@ Windows: Run locally
 - **_SceneJector_**: This is a MonoBehaviour that must be added as a component in the scene. It is the driving force behind the library and is the bare minimum that must exist within the scene to supply dependencies to other MonoBehaviours in the scene.
   - Must exist in the scene
   - There must be only one SceneJector in the scene.
+  - Must have the ContainerServiceProvider field initialized in the inspector with a container such as: **AutofacServiceAdapter**
   
 
 - **_InjecteeAttribute_**: This is a C# attribute class that can target only classes. For a resource on understanding attributes please refer to this MSDN page: [here](https://msdn.microsoft.com/en-us/library/z0w1kczw.aspx). This particular attribute is simplistic and its purpose is for efficiency but it cannot be ignored regardless whether you'd prefer this efficiency or not. The *InjecteeAttribute* should target MonoBehaviours that have dependencies that need injecting. Without this attribute the SceneJector will not find nor supply the dependencies to your MonoBehaviours
