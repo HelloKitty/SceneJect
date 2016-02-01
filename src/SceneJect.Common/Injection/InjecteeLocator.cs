@@ -35,7 +35,8 @@ namespace SceneJect.Common
 			//Also, we can avoid another Where call by relying on short-circuit evaluation not executing the second portion if
 			//uneeded which is nice.
 			locatedBehaviours = behavioursToParse
-				.Where(x => x is T && x.GetType().Attributes<InjecteeAttribute>().Count > 0);
+				.Where(x => x is T)
+				.Where(x => x.GetType().Attributes<InjecteeAttribute>().Count > 0);
 		}
 
 		public IEnumerator<T> GetEnumerator()
