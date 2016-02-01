@@ -16,6 +16,12 @@ namespace SceneJect.Common
 
 		public Injector(object instance, IResolver res)
 		{
+			if (instance == null)
+				throw new ArgumentNullException(nameof(instance), "Cannot inject into a null instance.");
+
+			if (res == null)
+				throw new ArgumentNullException(nameof(res), "Cannot resolve types for injection with a null resolver.");
+
 			objectInstance = instance;
 			objectType = instance.GetType();
 			resolver = res;
