@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Fasterflect;
 
 namespace SceneJect.Common
 {
@@ -31,20 +32,22 @@ namespace SceneJect.Common
 		{
 			try
 			{
-				foreach (FieldInfo f in objectType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public ))
+				//find fields that request injection
+				IEnumerable<FieldInfo> fields = objectType.Fields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+					.Where(fi => fi.HasAttribute<InjectAttribute>());
+
+                foreach (FieldInfo fi in fields)
 				{
-					if (f.GetCustomAttributes(typeof(InjectAttribute), false).Length > 0) //Means it is targeted by the attribute.
-					{
-						f.SetValue(objectInstance, resolver.Resolve(f.FieldType),
-							BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetField, null, null);
-					}
+					fi.Set(objectInstance, resolver.Resolve(fi.FieldType));
 				}
 
-				foreach (PropertyInfo p in objectType.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+				//find props that request injection
+				IEnumerable<PropertyInfo> props = objectType.Properties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+					.Where(pi => pi.HasAttribute<InjectAttribute>());
+
+				foreach (PropertyInfo pi in props)
 				{
-					if (p.GetCustomAttributes(typeof(InjectAttribute), false).Length > 0)
-						p.SetValue(objectInstance, resolver.Resolve(p.PropertyType),
-							BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, null, null);
+					pi.Set(objectInstance, resolver.Resolve(pi.PropertyType));
 				}
 			}
 			catch (Exception e)
