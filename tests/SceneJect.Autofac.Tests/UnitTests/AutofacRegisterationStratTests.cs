@@ -68,6 +68,24 @@ namespace SceneJect.Autofac.Tests
 		}
 
 		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_SingleInstance_With_Provided_Instance()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			List<int> providedInstance = new List<int>();
+
+			//act
+			register.Register(providedInstance, RegistrationType.SingleInstance, typeof(IList<int>));
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<IList<int>>());
+
+			Assert.AreSame(providedInstance, container.Resolve<IList<int>>());
+		}
+
+		[Test]
 		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Instance_Per_Dependency()
 		{
 			//arrange
