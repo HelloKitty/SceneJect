@@ -57,8 +57,8 @@ namespace SceneJect.Common.Tests
 			{
 				Assert.IsTrue(testInstance.test.Contains(i));
 				Assert.IsTrue(testInstance.test2.Contains(i));
-			}
-				
+				Assert.IsTrue(testInstance.test3.Contains(i));
+			}		
 		}
 
 		public class TestClass
@@ -68,6 +68,10 @@ namespace SceneJect.Common.Tests
 
 			[Inject]
 			public IList<int> test2;
+
+			[Inject]
+			public IList<int> test3 { get; private set; }
+
 		}
 	}
 }
