@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Sceneject.Autofac
+namespace SceneJect.Autofac
 {
 	public class AutofacServiceAdapter : ContainerServiceProvider, IResolver, IServiceRegister
 	{

@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core.Registration;
 using NUnit.Framework;
-using Sceneject.Autofac;
 using SceneJect.Common;
 using System;
 using System.Collections.Generic;
