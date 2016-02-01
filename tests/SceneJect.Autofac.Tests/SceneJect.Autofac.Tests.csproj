@@ -59,7 +59,7 @@
     <Compile Include="UnitTests\AutofacRegisterationStratTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Sceneject.Autofac\SceneJect.Autofac.csproj">
+    <ProjectReference Include="..\..\src\SceneJect.Autofac\SceneJect.Autofac.csproj">
       <Project>{9d220e6b-6b68-4dce-a069-3022a5082c2b}</Project>
       <Name>SceneJect.Autofac</Name>
     </ProjectReference>
