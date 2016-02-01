@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Common", "src\Sce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Common.Tests", "tests\SceneJect.Common.Tests\SceneJect.Common.Tests.csproj", "{3323C585-D3EC-4D52-801A-B4F2B508B3EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sceneject.Autofac", "src\Sceneject.Autofac\Sceneject.Autofac.csproj", "{9D220E6B-6B68-4DCE-A069-3022A5082C2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Autofac", "src\Sceneject.Autofac\SceneJect.Autofac.csproj", "{9D220E6B-6B68-4DCE-A069-3022A5082C2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Autofac.Tests", "tests\SceneJect.Autofac.Tests\SceneJect.Autofac.Tests.csproj", "{746A94E9-D590-4CC4-9915-CB8AE55DC93E}"
 EndProject

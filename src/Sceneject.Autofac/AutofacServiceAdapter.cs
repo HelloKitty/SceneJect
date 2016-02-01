@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SceneJect.Autofac;
 using SceneJect.Common;
 using System;
 using System.Collections.Generic;

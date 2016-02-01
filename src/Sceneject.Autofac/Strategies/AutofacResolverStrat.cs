@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sceneject.Autofac
+namespace SceneJect.Autofac
 {
 	public class AutofacResolverStrat : IResolver
 	{
