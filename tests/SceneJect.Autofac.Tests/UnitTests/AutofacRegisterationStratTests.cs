@@ -1,5 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Autofac;
+using Autofac.Core.Registration;
+using NUnit.Framework;
 using Sceneject.Autofac;
+using SceneJect.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +18,105 @@ namespace SceneJect.Autofac.Tests
 		{
 			//assert
 			Assert.Throws<ArgumentNullException>(() => new AutofacRegisterationStrat(null));
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<List<int>>(RegistrationType.Default);
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<List<int>>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Interface()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<List<int>>(RegistrationType.Default, typeof(IList<int>));
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<IList<int>>());
+			Assert.Throws<ComponentNotRegisteredException>(() => container.Resolve<List<int>>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_SingleInstance()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<List<int>>(RegistrationType.SingleInstance, typeof(IList<int>));
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<IList<int>>());
+
+			Assert.AreSame(container.Resolve<IList<int>>(), container.Resolve<IList<int>>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Self()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<List<int>>(RegistrationType.AsSelf);
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<List<int>>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Implemented_Interface()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<TestClass>(RegistrationType.AsImplementedInterface);
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<TestInterface>());
+			Assert.Throws<ComponentNotRegisteredException>(() => container.Resolve<TestClass>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Implemented_Interface_And_AsSelf()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<TestClass>(RegistrationType.AsImplementedInterface | RegistrationType.AsSelf);
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<TestInterface>());
+			Assert.NotNull(container.Resolve<TestClass>());
+		}
+
+		public interface TestInterface
+		{
+
+		}
+
+		public class TestClass : TestInterface
+		{
+
 		}
 	}
 }
