@@ -27,8 +27,8 @@ namespace SceneJect.Common
 			if (containerServiceProvider == null)
 				throw new ArgumentNullException(nameof(containerServiceProvider), "Cannot have a null provider for container services. " + nameof(SceneJector) + " requires this for DI.");
 
-			RegisterDependencies(containerServiceProvider);
-			InjectDependencies(containerServiceProvider);
+			RegisterDependencies(containerServiceProvider.Registry);
+			InjectDependencies(containerServiceProvider.Resolver);
 		}
 
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
