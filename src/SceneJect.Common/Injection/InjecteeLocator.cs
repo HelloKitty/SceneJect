@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Fasterflect;
 
 namespace SceneJect.Common
 {
@@ -34,7 +35,7 @@ namespace SceneJect.Common
 			//Also, we can avoid another Where call by relying on short-circuit evaluation not executing the second portion if
 			//uneeded which is nice.
 			locatedBehaviours = behavioursToParse
-				.Where(x => x is T && x.GetType().GetCustomAttributes(typeof(InjecteeAttribute), true).Length > 0);
+				.Where(x => x is T && x.GetType().Attributes<InjecteeAttribute>().Count > 0);
 		}
 
 		public IEnumerator<T> GetEnumerator()
