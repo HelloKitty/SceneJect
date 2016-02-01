@@ -65,6 +65,22 @@ namespace SceneJect.Autofac.Tests
 		}
 
 		[Test]
+		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Instance_Per_Dependency()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Register<List<int>>(RegistrationType.InstancePerDependency, typeof(IList<int>));
+			IContainer container = register.Build();
+
+			//assert
+			Assert.NotNull(container.Resolve<IList<int>>());
+
+			Assert.AreNotSame(container.Resolve<IList<int>>(), container.Resolve<IList<int>>());
+		}
+
+		[Test]
 		public static void Test_AutoFacRegisterationStrat_Can_Register_Type_As_Self()
 		{
 			//arrange
@@ -106,6 +122,32 @@ namespace SceneJect.Autofac.Tests
 			//assert
 			Assert.NotNull(container.Resolve<TestInterface>());
 			Assert.NotNull(container.Resolve<TestClass>());
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_isLocked_After_Build()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			IContainer container = register.Build();
+
+			//assert
+			Assert.IsTrue(register.isLocked);
+		}
+
+		[Test]
+		public static void Test_AutoFacRegisterationStrat_Throws_When_Locked()
+		{
+			//arrange
+			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
+
+			//act
+			register.Lock();
+
+			//assert
+			Assert.Throws<InvalidOperationException>(() => register.Register<IList<int>>(RegistrationType.Default));
 		}
 
 		public interface TestInterface
