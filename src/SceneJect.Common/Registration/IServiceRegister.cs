@@ -7,11 +7,11 @@ namespace SceneJect.Common
 {
 	public interface IServiceRegister
 	{
-		void Register<T>(T instance, RegistrationType registerationFlags, Type registerAs = null)
-			where T : class;
+		void Register<TTypeToRegister>(TTypeToRegister instance, RegistrationType registerationFlags, Type registerAs = null)
+			where TTypeToRegister : class;
 
-		void Register<T>(RegistrationType registerationFlags, Type registerAs = null)
-			where T : class;
+		void Register<TTypeToRegister>(RegistrationType registerationFlags, Type registerAs = null)
+			where TTypeToRegister : class;
 
 		void Register(DependencyTypePair pair);
 	}

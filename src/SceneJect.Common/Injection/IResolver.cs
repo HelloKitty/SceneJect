@@ -7,8 +7,8 @@ namespace SceneJect.Common
 {
 	public interface IResolver
 	{
-		T Resolve<T>()
-			where T : class;
+		TTypeToResolve Resolve<TTypeToResolve>()
+			where TTypeToResolve : class;
 
 		object Resolve(Type t);
 	}
