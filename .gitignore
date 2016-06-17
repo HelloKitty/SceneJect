@@ -22,7 +22,6 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]ib/Dependency Builds/
-src/Sceneject.AutoFac/
 
 # Visual Studo 2015 cache/options directory
 .vs/
@@ -104,6 +103,8 @@ _TeamCity*
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
+*.ncrunch*
+nCrunchTemp_*
 
 # MightyMoose
 *.mm.*
