@@ -5,7 +5,7 @@ notifications:
   slack: boomanationteam:sPQHUqEWA3wTaB9IKOSxe2f1
 
 install:
-  - nuget install NUnit.Runners -Version 3.0.1 -OutputDirectory tests/testrunner
+  - nuget install NUnit.Runners -OutputDirectory tests/testrunner
   - nuget restore SceneJect.sln -ConfigFile NuGet.config
 
 before_script:
