@@ -1,2 +1,2 @@
-mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./SceneJect.AutoFac.Tests/bin/Debug/SceneJect.AutoFac.Tests.dll
-mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./SceneJect.Common.Tests/bin/Debug/SceneJect.Common.Tests.dll
+mono ./testrunner/NUnit.Console.3.2.0/tools/nunit3-console.exe ./SceneJect.AutoFac.Tests/bin/Debug/SceneJect.AutoFac.Tests.dll
+mono ./testrunner/NUnit.Console.3.2.0/tools/nunit3-console.exe ./SceneJect.Common.Tests/bin/Debug/SceneJect.Common.Tests.dll
