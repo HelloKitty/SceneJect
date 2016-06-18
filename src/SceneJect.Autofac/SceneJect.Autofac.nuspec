@@ -12,6 +12,6 @@
     <tags>Tag1 Tag2</tags>
   </metadata>
   <files>
-    <file src="bin\Release\AutoFac.dll" target=""/>
+    <file src="bin\Release\AutoFac.dll" target="lib\net35"/>
   </files>
 </package>
