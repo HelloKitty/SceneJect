@@ -16,7 +16,7 @@ namespace SceneJect.Common.Tests
 		public void Test_InjecteeLocator_Throws_Null_With_Null_Collection()
 		{
 			//assert
-			Assert.Throws<ArgumentNullException>(() => new InjecteeLocator<MonoBehaviour>(null));
+			Assert.Throws<ArgumentNullException>(() => new InjecteeLocator<MonoBehaviour>(null as IEnumerable<MonoBehaviour>));
 		}
 	}
 }
