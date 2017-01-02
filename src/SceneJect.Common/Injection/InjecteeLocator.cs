@@ -42,6 +42,16 @@ namespace SceneJect.Common
 				.Where(x => x.GetType().Attributes<InjecteeAttribute>().Count > 0);
 		}
 
+		/// <summary>
+		/// Locates injectee's via the provided <paramref name="rootObject"/> <see cref="GameObject"/>.
+		/// </summary>
+		/// <param name="rootObject"><see cref="GameObject"/> root (heirarchy).</param>
+		public InjecteeLocator(GameObject rootObject)
+		{
+			//Grabs all components from the GameObject.
+			locatedBehaviours = rootObject.GetComponentsInChildren<TBehaviourType>(true);
+		}
+
 		public IEnumerator<TBehaviourType> GetEnumerator()
 		{
 			return locatedBehaviours.GetEnumerator();
