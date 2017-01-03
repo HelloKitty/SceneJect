@@ -41,7 +41,7 @@ namespace SceneJect.Autofac
 
 			if (registerationFlags.HasFlag(RegistrationType.SingleInstance))
 				if (registerationFlags.HasFlag(RegistrationType.InstancePerDependency))
-					throw new InvalidOperationException(typeof(TTypeToRegister).ToString() + " tried to register as both single instance and per dependancy.");
+					throw new InvalidOperationException($"{typeof(TTypeToRegister).FullName} tried to register as both single instance and per dependancy.");
 				else
 					chainInstance.SingleInstance();
 			else
@@ -62,7 +62,7 @@ namespace SceneJect.Autofac
 		public void Register<TTypeToRegister>(RegistrationType registerationFlags, Type registerAs = null) where TTypeToRegister : class
 		{
 			if (isLocked)
-				throw new InvalidOperationException(typeof(TTypeToRegister).ToString() + " tried to register with this container but did so after its generation.");
+				throw new InvalidOperationException($"{typeof(TTypeToRegister).FullName} tried to register with this container but did so after its generation.");
 
 			var chainInstance = builder.RegisterType<TTypeToRegister>();
 

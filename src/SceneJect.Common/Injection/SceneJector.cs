@@ -31,8 +31,8 @@ namespace SceneJect.Common
 			if (containerServiceProvider == null)
 				throw new ArgumentNullException(nameof(containerServiceProvider), "Cannot have a null provider for container services. " + nameof(SceneJector) + " requires this for DI.");
 
-			RegisterDependencies(containerServiceProvider.Registry);
-			InjectDependencies(containerServiceProvider.Resolver);
+			RegisterDependencies(containerServiceProvider);
+			InjectDependencies(containerServiceProvider);
 		}
 
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
@@ -55,7 +55,7 @@ namespace SceneJect.Common
 				nbd.Register(register);
 
 			//Register the GameObjectFactory too
-			register.Register(new DefaultGameObjectFactory(containerServiceProvider.Resolver), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
+			register.Register(new DefaultGameObjectFactory(containerServiceProvider), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
 		}
 
 		private void InjectDependencies(IResolver resolver)

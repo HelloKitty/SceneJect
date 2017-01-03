@@ -11,24 +11,24 @@ namespace SceneJect.Autofac
 	public class AutofacServiceAdapter : ContainerServiceProvider, IResolver, IServiceRegister
 	{
 		private readonly AutofacRegisterationStrat registerationStrat = new AutofacRegisterationStrat(new ContainerBuilder());
-		public override IServiceRegister Registry { get { return registerationStrat; } }
+		protected override IServiceRegister registry { get { return registerationStrat; } }
 
-		private IResolver resolver = null;
-		public override IResolver Resolver { get { return GenerateResolver(); } }
+		private IResolver _resolver = null;
+		protected override IResolver resolver { get { return GenerateResolver(); } }
 
 		private readonly object syncObj = new object();
 
 		private IResolver GenerateResolver()
 		{
-			if(resolver == null)
+			if(_resolver == null)
 			{
 				//double check locking
 				lock(syncObj)
-					if (resolver == null)
-						resolver = new AutofacResolverStrat(registerationStrat.Build());
+					if (_resolver == null)
+						_resolver = new AutofacResolverStrat(registerationStrat.Build());
 			}
 
-			return resolver;
+			return _resolver;
 		}
 	}
 }
