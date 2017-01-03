@@ -49,7 +49,7 @@ namespace SceneJect.Common
 
 			foreach (MonoBehaviour mb in injecteeLocator)
 			{
-				Injector injecter = new Injector(obj, resolverService);
+				Injector injecter = new Injector(mb, resolverService);
 
 				injecter.Inject();
 			}
