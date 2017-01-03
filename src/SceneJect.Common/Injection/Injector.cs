@@ -28,6 +28,7 @@ namespace SceneJect.Common
 			resolver = res;
 		}
 
+		//TODO: Implement full caching to remember injectable fields for certain types.
 		public void Inject()
 		{
 			try
@@ -36,7 +37,7 @@ namespace SceneJect.Common
 				IEnumerable<FieldInfo> fields = objectType.Fields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
 					.Where(fi => fi.HasAttribute<InjectAttribute>());
 
-                foreach (FieldInfo fi in fields)
+				foreach (FieldInfo fi in fields)
 				{
 					fi.Set(objectInstance, resolver.Resolve(fi.FieldType));
 				}

@@ -26,7 +26,7 @@ namespace SceneJect.Autofac
 				lock(syncObj)
 					if (resolver == null)
 						resolver = new AutofacResolverStrat(registerationStrat.Build());
-            }
+			}
 
 			return resolver;
 		}

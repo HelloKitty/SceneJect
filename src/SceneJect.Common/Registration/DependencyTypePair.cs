@@ -43,6 +43,6 @@ namespace SceneJect.Common
 		public bool isInitialized()
 		{
 			return Behaviour != null && SelectedType != null;
-        }
+		}
 	}
 }

@@ -51,6 +51,6 @@ namespace SceneJect.Common
 		/// For more information on what happens behind the scenes refer here: http://docs.autofac.org/en/latest/lifetime/instance-scope.html#instance-per-dependency
 		/// and here: http://docs.autofac.org/en/latest/register/registration.html
 		/// </summary>
- 		InstancePerDependency = 1 << 4,
+		InstancePerDependency = 1 << 4,
 	}
 }

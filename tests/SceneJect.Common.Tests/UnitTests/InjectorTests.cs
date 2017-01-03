@@ -33,7 +33,7 @@ namespace SceneJect.Common.Tests
 
 			//assert
 			Assert.Throws<InvalidOperationException>(() => injector.Inject());
-        }
+		}
 
 		[Test]
 		public static void Test_Injector_Sets_Values()

@@ -17,7 +17,7 @@ namespace SceneJect.Autofac
 				throw new ArgumentNullException(nameof(autofacContainer), "Cannot have a valid resolve strat with a null container.");
 
 			container = autofacContainer;
-        }
+		}
 
 		public TTypeToResolve Resolve<TTypeToResolve>()
 			where TTypeToResolve : class

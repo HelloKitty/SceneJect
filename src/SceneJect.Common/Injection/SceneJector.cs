@@ -53,6 +53,9 @@ namespace SceneJect.Common
 			//This allows the registeration logic to be handled differently
 			foreach (var nbd in nonBehaviourDependencies)
 				nbd.Register(register);
+
+			//Register the GameObjectFactory too
+			register.Register(new DefaultGameObjectFactory(containerServiceProvider.Resolver), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
 		}
 
 		private void InjectDependencies(IResolver resolver)
