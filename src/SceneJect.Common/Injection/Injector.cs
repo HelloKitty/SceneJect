@@ -9,12 +9,22 @@ namespace SceneJect.Common
 {
 	public class Injector
 	{
-		private readonly IResolver resolver;
+		/// <summary>
+		/// Dependency resolution service.
+		/// </summary>
+		private IResolver resolver { get; }
 
-		private readonly Type objectType;
+		/// <summary>
+		/// Type of the object.
+		/// </summary>
+		private Type objectType { get; }
 
-		private readonly object objectInstance;
+		/// <summary>
+		/// Instance of the object
+		/// </summary>
+		private object objectInstance { get; }
 
+		//TODO: Stronger typing?
 		public Injector(object instance, IResolver res)
 		{
 			if (instance == null)
@@ -33,22 +43,9 @@ namespace SceneJect.Common
 		{
 			try
 			{
-				//find fields that request injection
-				IEnumerable<FieldInfo> fields = objectType.Fields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-					.Where(fi => fi.HasAttribute<InjectAttribute>());
-
-				foreach (FieldInfo fi in fields)
+				foreach (MemberInfo mi in objectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{
-					fi.Set(objectInstance, resolver.Resolve(fi.FieldType));
-				}
-
-				//find props that request injection
-				IEnumerable<PropertyInfo> props = objectType.Properties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-					.Where(pi => pi.HasAttribute<InjectAttribute>());
-
-				foreach (PropertyInfo pi in props)
-				{
-					pi.Set(objectInstance, resolver.Resolve(pi.PropertyType));
+					mi.Set(objectInstance, resolver.Resolve(mi.Type()));
 				}
 			}
 			catch (Exception e)

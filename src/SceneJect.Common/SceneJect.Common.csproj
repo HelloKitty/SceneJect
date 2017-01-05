@@ -51,6 +51,13 @@
   <ItemGroup>
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\InjecteeAttribute.cs" />
+    <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
+    <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
+    <Compile Include="Services\Contextual\ContextualDependencyResolverDecorator.cs" />
+    <Compile Include="Services\Contextual\ContextualGameObjectDependencyBuilder.cs" />
+    <Compile Include="Services\Contextual\IGameObjectContextualBuilder.cs" />
+    <Compile Include="Services\Contextual\IService.cs" />
+    <Compile Include="Services\Contextual\Service.cs" />
     <Compile Include="Registration\ContainerServiceProvider.cs" />
     <Compile Include="Registration\DependencyTypePair.cs" />
     <Compile Include="Injection\InjecteeLocator.cs" />
@@ -62,6 +69,7 @@
     <Compile Include="Registration\RegistrationType.cs" />
     <Compile Include="Injection\SceneJector.cs" />
     <Compile Include="Services\DefaultGameObjectFactory.cs" />
+    <Compile Include="Services\IGameObjectBuilder.cs" />
     <Compile Include="Services\IGameObjectFactory.cs" />
   </ItemGroup>
   <ItemGroup>

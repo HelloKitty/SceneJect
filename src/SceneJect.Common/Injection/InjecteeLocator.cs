@@ -15,9 +15,28 @@ namespace SceneJect.Common
 		where TBehaviourType : MonoBehaviour
 	{
 		/// <summary>
+		/// Creates a new default Injectee Location service.
+		/// </summary>
+		/// <returns>A non-null injection location service.</returns>
+		public static InjecteeLocator<TBehaviourType> Create()
+		{
+			return new InjecteeLocator<TBehaviourType>();
+		}
+
+		/// <summary>
+		/// Creates a new default Injectee Location service that parses
+		/// the provided <see cref="GameObject"/>.
+		/// </summary>
+		/// <returns>A non-null injection location service.</returns>
+		public static InjecteeLocator<TBehaviourType> Create(GameObject go)
+		{
+			return new InjecteeLocator<TBehaviourType>(go);
+		}
+
+		/// <summary>
 		/// The located <see cref="MonoBehaviour"/>s that are of type T and are of a <see cref="Type"/> marked by an <see cref="Attribute"/> called <see cref="InjecteeAttribute"/>.
 		/// </summary>
-		private readonly IEnumerable<TBehaviourType> locatedBehaviours;
+		private IEnumerable<TBehaviourType> locatedBehaviours { get; }
 
 		/// <summary>
 		/// This default constructor defaults to searching the scene for injectees which are declared by targeting

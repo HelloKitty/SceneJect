@@ -55,7 +55,7 @@ namespace SceneJect.Common
 				nbd.Register(register);
 
 			//Register the GameObjectFactory too
-			register.Register(new DefaultGameObjectFactory(containerServiceProvider), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
+			register.Register(new DefaultGameObjectFactory(containerServiceProvider, new DefaultInjectionStrategy()), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
 		}
 
 		private void InjectDependencies(IResolver resolver)

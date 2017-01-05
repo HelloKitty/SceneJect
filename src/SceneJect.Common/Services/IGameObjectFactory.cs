@@ -9,7 +9,7 @@ namespace SceneJect.Common
 	/// <summary>
 	/// Factory service for <see cref="GameObject"/> creation.
 	/// </summary>
-	public interface IGameObjectFactory
+	public interface IGameObjectFactory : IGameObjectBuilder
 	{
 		/// <summary>
 		/// Creates an empty <see cref="GameObject"/>.
@@ -18,17 +18,9 @@ namespace SceneJect.Common
 		GameObject Create();
 
 		/// <summary>
-		/// Creates an instance of the prefab <see cref="GameObject"/>.
+		/// Creates a <see cref="IGameObjectContextualBuilder"/> service.
 		/// </summary>
-		/// <param name="prefab">Prefab to create an instance of.</param>
-		/// <returns>A non-null instance of the provided <see cref="GameObject"/> <paramref name="prefab"/>.</returns>
-		GameObject Create(GameObject prefab);
-
-		/// <summary>
-		/// Creates an instance of the prefab <see cref="GameObject"/> with the provided position and rotation.
-		/// </summary>
-		/// <param name="prefab">Prefab to create an instance of.</param>
-		/// <returns>A non-null instance of the provided <see cref="GameObject"/> <paramref name="prefab"/>.</returns>
-		GameObject Create(GameObject prefab, Vector3 position, Quaternion rotation);
+		/// <returns>A non-null contextual building service.</returns>
+		IGameObjectContextualBuilder CreateBuilder();
 	}
 }

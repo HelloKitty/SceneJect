@@ -13,11 +13,20 @@ namespace SceneJect.Common
 		/// </summary>
 		private IResolver resolverService { get; }
 
-		public DefaultGameObjectFactory(IResolver resolver)
+		/// <summary>
+		/// Strategy for injection.
+		/// </summary>
+		private IInjectionStrategy injectionStrategy { get; }
+
+		public DefaultGameObjectFactory(IResolver resolver, IInjectionStrategy injectionStrat)
 		{
 			if (resolver == null)
 				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IResolver)} service provided is null.");
 
+			if (injectionStrategy == null)
+				throw new ArgumentNullException(nameof(injectionStrategy), $"Provided {nameof(IInjectionStrategy)} service provided is null.");
+
+			injectionStrategy = injectionStrat;
 			resolverService = resolver;
 		}
 
@@ -44,15 +53,7 @@ namespace SceneJect.Common
 
 		private GameObject InjectDependencies(GameObject obj)
 		{
-			//Now inject dependencies into its components
-			InjecteeLocator<MonoBehaviour> injecteeLocator = new InjecteeLocator<MonoBehaviour>(obj);
-
-			foreach (MonoBehaviour mb in injecteeLocator)
-			{
-				Injector injecter = new Injector(mb, resolverService);
-
-				injecter.Inject();
-			}
+			injectionStrategy.InjectDependencies(InjecteeLocator<MonoBehaviour>.Create(obj), resolverService);
 
 			return obj;
 		}
@@ -65,6 +66,12 @@ namespace SceneJect.Common
 		public GameObject Create(GameObject prefab, Vector3 position, Quaternion rotation)
 		{
 			return InjectDependencies(GameObject.Instantiate(prefab, position, rotation) as GameObject);
+		}
+
+		public IGameObjectContextualBuilder CreateBuilder()
+		{
+			//Just init a new builder and let the consumer chain requests and generate the gameobject.
+			return new ContextualGameObjectDependencyBuilder(resolverService, injectionStrategy);
 		}
 	}
 }
