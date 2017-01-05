@@ -4,6 +4,8 @@
 
 ###Builds
 
+Builds are available on Nuget Feed: https://www.myget.org/F/hellokitty/api/v2
+
 Linux/Mono: [![Build Status](https://travis-ci.org/HelloKitty/SceneJect.svg?branch=master)](https://travis-ci.org/HelloKitty/SceneJect)
 
 Windows: Run locally
