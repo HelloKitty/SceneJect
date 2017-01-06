@@ -6,28 +6,12 @@ using UnityEngine;
 
 namespace SceneJect.Common
 {
-	public class DefaultGameObjectFactory : IGameObjectFactory
+	public class DefaultGameObjectFactory : DepedencyInjectionFactoryService, IGameObjectFactory
 	{
-		/// <summary>
-		/// Service for resolving dependencies.
-		/// </summary>
-		private IResolver resolverService { get; }
-
-		/// <summary>
-		/// Strategy for injection.
-		/// </summary>
-		private IInjectionStrategy injectionStrategy { get; }
-
 		public DefaultGameObjectFactory(IResolver resolver, IInjectionStrategy injectionStrat)
+			: base(resolver, injectionStrat)
 		{
-			if (resolver == null)
-				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IResolver)} service provided is null.");
 
-			if (injectionStrategy == null)
-				throw new ArgumentNullException(nameof(injectionStrategy), $"Provided {nameof(IInjectionStrategy)} service provided is null.");
-
-			injectionStrategy = injectionStrat;
-			resolverService = resolver;
 		}
 
 		/// <summary>
@@ -53,7 +37,7 @@ namespace SceneJect.Common
 
 		private GameObject InjectDependencies(GameObject obj)
 		{
-			injectionStrategy.InjectDependencies(InjecteeLocator<MonoBehaviour>.Create(obj), resolverService);
+			injectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolverService);
 
 			return obj;
 		}

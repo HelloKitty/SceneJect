@@ -16,16 +16,22 @@ namespace SceneJect.Common
 			//dont need to do anything.
 		}
 
+		public void InjectDependencies<TBehaviourType>(TBehaviourType behaviour, IResolver serviceResolutionService) 
+			where TBehaviourType : MonoBehaviour
+		{
+			//TODO: Deal with the specifics of injection through the strategy
+			Injector injecter = new Injector(behaviour, serviceResolutionService);
+
+			injecter.Inject();
+		}
+
 		public void InjectDependencies<TBehaviourType>(IEnumerable<TBehaviourType> behaviours, IResolver serviceResolutionService) 
 			where TBehaviourType : MonoBehaviour
 		{
 			//Inject dependencies into each MonoBehaviour
 			foreach (MonoBehaviour mb in behaviours)
 			{
-				//TODO: Deal with the specifics of injection through the strategy
-				Injector injecter = new Injector(mb, serviceResolutionService);
-
-				injecter.Inject();
+				InjectDependencies(mb, serviceResolutionService);
 			}
 		}
 	}

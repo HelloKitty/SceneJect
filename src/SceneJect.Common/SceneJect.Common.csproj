@@ -53,9 +53,12 @@
     <Compile Include="Attributes\InjecteeAttribute.cs" />
     <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
     <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
+    <Compile Include="Services\Contextual\Component\ContextualComponentDependencyBuilder.cs" />
+    <Compile Include="Services\Contextual\Component\IComponentContextualBuilder.cs" />
     <Compile Include="Services\Contextual\ContextualDependencyResolverDecorator.cs" />
-    <Compile Include="Services\Contextual\ContextualGameObjectDependencyBuilder.cs" />
-    <Compile Include="Services\Contextual\IGameObjectContextualBuilder.cs" />
+    <Compile Include="Services\Contextual\GameObject\ContextualGameObjectDependencyBuilder.cs" />
+    <Compile Include="Services\Contextual\IContextualServiceRegisterable.cs" />
+    <Compile Include="Services\Contextual\GameObject\IGameObjectContextualBuilder.cs" />
     <Compile Include="Services\Contextual\IService.cs" />
     <Compile Include="Services\Contextual\Service.cs" />
     <Compile Include="Registration\ContainerServiceProvider.cs" />
@@ -68,9 +71,13 @@
     <Compile Include="Injection\Injector.cs" />
     <Compile Include="Registration\RegistrationType.cs" />
     <Compile Include="Injection\SceneJector.cs" />
-    <Compile Include="Services\DefaultGameObjectFactory.cs" />
-    <Compile Include="Services\IGameObjectBuilder.cs" />
-    <Compile Include="Services\IGameObjectFactory.cs" />
+    <Compile Include="Services\Factory\Component\DefaultGameObjectComponentAttachmentFactory.cs" />
+    <Compile Include="Services\Factory\Component\IComponentAttachmentService.cs" />
+    <Compile Include="Services\Factory\Component\IGameObjectComponentAttachmentFactory.cs" />
+    <Compile Include="Services\Factory\DepedencyInjectionFactoryService.cs" />
+    <Compile Include="Services\Factory\GameObject\DefaultGameObjectFactory.cs" />
+    <Compile Include="Services\Factory\GameObject\IGameObjectBuilder.cs" />
+    <Compile Include="Services\Factory\GameObject\IGameObjectFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -6,34 +6,17 @@ using UnityEngine;
 
 namespace SceneJect.Common
 {
-	public class ContextualGameObjectDependencyBuilder : IGameObjectContextualBuilder
+	public class ContextualGameObjectDependencyBuilder : DepedencyInjectionFactoryService, IGameObjectContextualBuilder
 	{
 		/// <summary>
 		/// Dictionary of mapped Types to service instance.
 		/// </summary>
 		private IDictionary<Type, object> serviceMap { get; }
 
-		/// <summary>
-		/// Default service resolution service.
-		/// </summary>
-		private IResolver defaultServiceResolver { get; }
-
-		/// <summary>
-		/// Injection service.
-		/// </summary>
-		private IInjectionStrategy injectionStrategyService { get; }
-
 		public ContextualGameObjectDependencyBuilder(IResolver defaultResolver, IInjectionStrategy injectionStrategy)
+			: base(defaultResolver, injectionStrategy)
 		{
-			if (defaultResolver == null)
-				throw new ArgumentNullException(nameof(defaultResolver), $"Provided arg {nameof(defaultResolver)} of Type: {nameof(IResolver)} was null.");
-
-			if (injectionStrategy == null)
-				throw new ArgumentNullException(nameof(injectionStrategy), $"Provided arg {nameof(injectionStrategy)} of Type: {nameof(IInjectionStrategy)} was null.");
-
 			serviceMap = new Dictionary<Type, object>();
-			injectionStrategyService = injectionStrategy;
-			defaultServiceResolver = defaultResolver;
 		}
 
 		public IGameObjectContextualBuilder With<TServiceType>(IService<TServiceType> service)
@@ -55,10 +38,10 @@ namespace SceneJect.Common
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
 			//Decorate the current resolver with one that uses the contextual services
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.defaultServiceResolver, serviceMap);
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.resolverService, serviceMap);
 
 			//Inject using the decorated resolver
-			injectionStrategyService.InjectDependencies(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
+			injectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
 
 			return obj;
 		}

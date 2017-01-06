@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SceneJect.Common
 {
+	//TODO: This is a misnomer
 	public interface IGameObjectBuilder
 	{
 		/// <summary>
