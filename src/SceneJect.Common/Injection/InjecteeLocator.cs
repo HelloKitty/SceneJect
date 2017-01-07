@@ -43,7 +43,7 @@ namespace SceneJect.Common
 		/// classes with <see cref="InjecteeAttribute"/>, an attribute.
 		/// </summary>
 		public InjecteeLocator()
-			: this(Resources.FindObjectsOfTypeAll<TBehaviourType>()) //this parses everything, could include components on prefabs. However, injecting into them is semi-ok. Not a great solution but only solution.
+			: this(Resources.FindObjectsOfTypeAll<TBehaviourType>().Where(b => b.gameObject.scene != null))
 		{
 
 		}
