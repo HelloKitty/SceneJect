@@ -22,8 +22,8 @@ namespace SceneJect.Common
 			if (resolver == null)
 				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IResolver)} service provided is null.");
 
-			if (injectionStrategy == null)
-				throw new ArgumentNullException(nameof(injectionStrategy), $"Provided {nameof(IInjectionStrategy)} service provided is null.");
+			if (injectionStrat == null)
+				throw new ArgumentNullException(nameof(injectionStrat), $"Provided {nameof(IInjectionStrategy)} service provided is null.");
 
 			injectionStrategy = injectionStrat;
 			resolverService = resolver;
