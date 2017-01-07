@@ -43,7 +43,7 @@ namespace SceneJect.Common
 		/// classes with <see cref="InjecteeAttribute"/>, an attribute.
 		/// </summary>
 		public InjecteeLocator()
-			: this(Resources.FindObjectsOfTypeAll<TBehaviourType>().Where(b => b.gameObject.scene != null))
+			: this(Resources.FindObjectsOfTypeAll<TBehaviourType>().Where(b => b.gameObject.scene != null && b.gameObject.scene.name != null)) //this is a hack but it'll filter out prefab references in memory
 		{
 
 		}
