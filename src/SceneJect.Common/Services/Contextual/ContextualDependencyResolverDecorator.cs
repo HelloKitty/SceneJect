@@ -37,12 +37,11 @@ namespace SceneJect.Common
 
 		public object Resolve(Type t)
 		{
+			if (t == null) throw new ArgumentNullException(nameof(t));
+
 			//Decorate by providing an instance of the dependency if the contextual "container" has it.
 			//Otherwise we can default the the decorated resolver which is likely to happen.
-			if (contextualDependencyMap.ContainsKey(t))
-				return contextualDependencyMap[t];
-			else
-				return decoratedResolver.Resolve(t);
+			return contextualDependencyMap.ContainsKey(t) ? contextualDependencyMap[t] : decoratedResolver.Resolve(t);
 		}
 	}
 }

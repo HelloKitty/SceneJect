@@ -4,16 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace SceneJect.Autofac
 {
 	public class AutofacRegisterationStrat : IServiceRegister, ILockable
 	{
-		private readonly ContainerBuilder builder;
+		[NotNull]
+		private ContainerBuilder builder { get; }
 
 		public bool isLocked { get; private set; }
 
-		public AutofacRegisterationStrat(ContainerBuilder autofacBuilder)
+		public AutofacRegisterationStrat([NotNull] ContainerBuilder autofacBuilder)
 		{
 			if (autofacBuilder == null)
 				throw new ArgumentNullException(nameof(autofacBuilder), "Cannot have null builder provider in registeration strat.");
@@ -28,9 +30,11 @@ namespace SceneJect.Autofac
 			return builder.Build();
 		}
 
-		public void Register<TTypeToRegister>(TTypeToRegister instance, RegistrationType registerationFlags, Type registerAs = null)
+		public void Register<TTypeToRegister>([NotNull] TTypeToRegister instance, RegistrationType registerationFlags, Type registerAs = null)
 			where TTypeToRegister : class
 		{
+			if (instance == null) throw new ArgumentNullException(nameof(instance));
+
 			if (isLocked)
 				throw new InvalidOperationException(typeof(TTypeToRegister).ToString() + " tried to register with this container but did so after its generation.");
 
@@ -88,8 +92,10 @@ namespace SceneJect.Autofac
 				chainInstance.ExternallyOwned();
 		}
 
-		public void Register(DependencyTypePair pair)
+		public void Register([NotNull] DependencyTypePair pair)
 		{
+			if (pair == null) throw new ArgumentNullException(nameof(pair));
+
 			//pairs are externally owned MonoBehaviours that exist in the editor
 			//Register them as such and as the instance to provide
 			builder.RegisterInstance(pair.Behaviour).As(pair.SelectedType).ExternallyOwned();

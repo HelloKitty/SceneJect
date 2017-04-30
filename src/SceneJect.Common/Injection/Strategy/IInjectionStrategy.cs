@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -18,7 +19,7 @@ namespace SceneJect.Common
 		/// <typeparam name="TBehaviourType">MonoBehaviour type.</typeparam>
 		/// <param name="behaviours">Behaviours to inject into.</param>
 		/// <param name="serviceResolutionService">Service resolution service.</param>
-		void InjectDependencies<TBehaviourType>(IEnumerable<TBehaviourType> behaviours, IResolver serviceResolutionService)
+		void InjectDependencies<TBehaviourType>([NotNull] IEnumerable<TBehaviourType> behaviours, [NotNull] IResolver serviceResolutionService)
 			where TBehaviourType : MonoBehaviour;
 
 		/// <summary>
@@ -28,7 +29,7 @@ namespace SceneJect.Common
 		/// <typeparam name="TBehaviourType">MonoBehaviour type.</typeparam>
 		/// <param name="behaviour">Behaviour to inject into.</param>
 		/// <param name="serviceResolutionService">Service resolution service.</param>
-		void InjectDependencies<TBehaviourType>(TBehaviourType behaviour, IResolver serviceResolutionService)
+		void InjectDependencies<TBehaviourType>([NotNull] TBehaviourType behaviour, [NotNull] IResolver serviceResolutionService)
 			where TBehaviourType : MonoBehaviour;
 	}
 }

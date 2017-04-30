@@ -11,10 +11,7 @@ namespace SceneJect.Common
 		[SerializeField]
 		private List<RegistrationType> _RegisterFlags;
 
-		protected IEnumerable<RegistrationType> registerFlags
-		{
-			get { return _RegisterFlags; }
-		}
+		protected IEnumerable<RegistrationType> registerFlags => _RegisterFlags;
 
 		public abstract void Register(IServiceRegister register);
 

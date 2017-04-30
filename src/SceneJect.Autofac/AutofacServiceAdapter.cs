@@ -10,13 +10,13 @@ namespace SceneJect.Autofac
 {
 	public class AutofacServiceAdapter : ContainerServiceProvider, IResolver, IServiceRegister
 	{
-		private readonly AutofacRegisterationStrat registerationStrat = new AutofacRegisterationStrat(new ContainerBuilder());
-		protected override IServiceRegister registry { get { return registerationStrat; } }
+		private AutofacRegisterationStrat registerationStrat { get; } = new AutofacRegisterationStrat(new ContainerBuilder());
+		protected override IServiceRegister registry => registerationStrat;
 
 		private IResolver _resolver = null;
-		protected override IResolver resolver { get { return GenerateResolver(); } }
+		protected override IResolver resolver => GenerateResolver();
 
-		private readonly object syncObj = new object();
+		private object syncObj { get; } = new object();
 
 		private IResolver GenerateResolver()
 		{

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -29,14 +30,18 @@ namespace SceneJect.Common
 		/// </summary>
 		/// <param name="prefab">Prefab to create an instance of.</param>
 		/// <returns>A non-null instance of the provided <see cref="GameObject"/> <paramref name="prefab"/>.</returns>
-		public GameObject Create(GameObject prefab)
+		public GameObject Create([NotNull] GameObject prefab)
 		{
+			if (prefab == null) throw new ArgumentNullException(nameof(prefab));
+
 			//Create the GameObject and inject dependencies
 			return InjectDependencies(GameObject.Instantiate(prefab));
 		}
 
-		private GameObject InjectDependencies(GameObject obj)
+		private GameObject InjectDependencies([NotNull] GameObject obj)
 		{
+			if (obj == null) throw new ArgumentNullException(nameof(obj));
+
 			injectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolverService);
 
 			return obj;
@@ -47,8 +52,10 @@ namespace SceneJect.Common
 		/// </summary>
 		/// <param name="prefab">Prefab to create an instance of.</param>
 		/// <returns>A non-null instance of the provided <see cref="GameObject"/> <paramref name="prefab"/>.</returns>
-		public GameObject Create(GameObject prefab, Vector3 position, Quaternion rotation)
+		public GameObject Create([NotNull] GameObject prefab, Vector3 position, Quaternion rotation)
 		{
+			if (prefab == null) throw new ArgumentNullException(nameof(prefab));
+
 			return InjectDependencies(GameObject.Instantiate(prefab, position, rotation) as GameObject);
 		}
 

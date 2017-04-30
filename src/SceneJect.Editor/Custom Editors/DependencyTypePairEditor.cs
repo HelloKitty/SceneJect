@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,9 +12,9 @@ namespace SceneJect.CustomEditors
 	[CustomPropertyDrawer(typeof(DependencyTypePair))]
 	public class DependencyTypePairEditor : PropertyDrawer
 	{
-		private Dictionary<Type, IEnumerable<Type>> cachedTypeDictionary = new Dictionary<Type, IEnumerable<Type>>();
-		private Dictionary<Type, IEnumerable<string>> cachedAssemblyQualifiedNames = new Dictionary<Type, IEnumerable<string>>();
-		private Dictionary<Type, IEnumerable<string>> cachedShortTypeNames = new Dictionary<Type, IEnumerable<string>>();
+		private Dictionary<Type, IEnumerable<Type>> cachedTypeDictionary { get; } = new Dictionary<Type, IEnumerable<Type>>();
+		private Dictionary<Type, IEnumerable<string>> cachedAssemblyQualifiedNames { get; } = new Dictionary<Type, IEnumerable<string>>();
+		private Dictionary<Type, IEnumerable<string>> cachedShortTypeNames { get; } = new Dictionary<Type, IEnumerable<string>>();
 
 		public override float GetPropertyHeight(SerializedProperty property, UnityEngine.GUIContent label)
 		{
@@ -108,8 +109,10 @@ namespace SceneJect.CustomEditors
 			property.FindPropertyRelative("_SelectedType").stringValue = cachedFullTypeNamesForBehaviour[index];
 		}
 
-		private IEnumerable<Type> FindTypes(MonoBehaviour b)
+		private IEnumerable<Type> FindTypes([NotNull] MonoBehaviour b)
 		{
+			if (b == null) throw new ArgumentNullException(nameof(b));
+
 			Type t = b.GetType();
 
 			if (cachedTypeDictionary.ContainsKey(t))
@@ -130,8 +133,10 @@ namespace SceneJect.CustomEditors
 			return FindTypes(b);
 		}
 
-		private void RemoveFromCache(Type t)
+		private void RemoveFromCache([NotNull] Type t)
 		{
+			if (t == null) throw new ArgumentNullException(nameof(t));
+
 			cachedTypeDictionary.Remove(t);
 			cachedAssemblyQualifiedNames.Remove(t);
 			cachedShortTypeNames.Remove(t);

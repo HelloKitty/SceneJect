@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -19,8 +20,10 @@ namespace SceneJect.Common
 			serviceMap = new Dictionary<Type, object>();
 		}
 
-		public IGameObjectContextualBuilder With<TServiceType>(IService<TServiceType> service)
+		public IGameObjectContextualBuilder With<TServiceType>([NotNull] IService<TServiceType> service)
 		{
+			if (service == null) throw new ArgumentNullException(nameof(service));
+
 			//Just overide an existing regiseration
 			serviceMap[typeof(TServiceType)] = service.ServiceInstance;
 
@@ -28,13 +31,17 @@ namespace SceneJect.Common
 			return this;
 		}
 
-		public GameObject Create(GameObject prefab)
+		public GameObject Create([NotNull] GameObject prefab)
 		{
+			if (prefab == null) throw new ArgumentNullException(nameof(prefab));
+
 			return Create(prefab, Vector3.zero, Quaternion.identity);
 		}
 
-		public GameObject Create(GameObject prefab, Vector3 position, Quaternion rotation)
+		public GameObject Create([NotNull] GameObject prefab, Vector3 position, Quaternion rotation)
 		{
+			if (prefab == null) throw new ArgumentNullException(nameof(prefab));
+
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
 			//Decorate the current resolver with one that uses the contextual services

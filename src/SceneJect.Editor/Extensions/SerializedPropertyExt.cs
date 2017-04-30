@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEditor;
 
 namespace SceneJect.CustomEditors
@@ -11,8 +12,11 @@ namespace SceneJect.CustomEditors
 		//The below helper was copy-pasted with minor modifications from http://answers.unity3d.com/questions/682932/using-generic-list-with-serializedproperty-inspect.html
 		//It deals with the writing of arrays in a serialized property as well as
 		//writing individual properties.
-		internal static bool WriteSerializedArray<T>(this SerializedProperty sp, T[] arrayObject)
+		internal static bool WriteSerializedArray<T>([NotNull] this SerializedProperty sp, [NotNull] T[] arrayObject)
 		{
+			if (sp == null) throw new ArgumentNullException(nameof(sp));
+			if (arrayObject == null) throw new ArgumentNullException(nameof(arrayObject));
+
 			sp.Next(true); // skip generic field
 			sp.Next(true); // advance to array size field
 
@@ -32,8 +36,11 @@ namespace SceneJect.CustomEditors
 			return true;
 		}
 
-		internal static bool WriteSerialzedProperty(this SerializedProperty sp, object variableValue)
+		internal static bool WriteSerialzedProperty([NotNull] this SerializedProperty sp, [NotNull] object variableValue)
 		{
+			if (sp == null) throw new ArgumentNullException(nameof(sp));
+			if (variableValue == null) throw new ArgumentNullException(nameof(variableValue));
+
 			// Type the property and fill with new value
 			SerializedPropertyType type = sp.propertyType; // get the property type
 
@@ -59,7 +66,7 @@ namespace SceneJect.CustomEditors
 					break;
 
 				default:
-					throw new NotSupportedException("Found PropertyType: " + type.ToString() + " which cannot be serialized by default.");
+					throw new NotSupportedException($"Found PropertyType: {type} which cannot be serialized by default.");
 			}
 
 			return true;

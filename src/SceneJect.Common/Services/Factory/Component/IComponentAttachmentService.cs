@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -19,7 +20,7 @@ namespace SceneJect.Common
 		/// <typeparam name="TComponentType">The component type.</typeparam>
 		/// <param name="gameObject">The gameobject to add it to.</param>
 		/// <returns>The attached component.</returns>
-		TComponentType AddTo<TComponentType>(GameObject gameObject)
+		TComponentType AddTo<TComponentType>([NotNull] GameObject gameObject)
 			where TComponentType : MonoBehaviour;
 	}
 }

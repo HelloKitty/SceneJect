@@ -50,7 +50,7 @@ namespace SceneJect.Common
 			}
 			catch (Exception e)
 			{
-				throw new InvalidOperationException("Error: " + e.Message + " failed to inject for " + objectType.ToString() + " on instance: " + objectInstance.ToString(), e);
+				throw new InvalidOperationException($"Error: {e.Message} failed to inject for {objectType} on instance: {objectInstance}", e);
 			}
 		}
 	}

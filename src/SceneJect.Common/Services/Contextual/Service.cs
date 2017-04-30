@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace SceneJect.Common
 {
@@ -19,8 +20,10 @@ namespace SceneJect.Common
 		public TServiceType ServiceInstance { get; }
 
 		//Hide so that they use fluent As construction
-		protected Service(TServiceType instance)
+		protected Service([NotNull] TServiceType instance)
 		{
+			if (instance == null) throw new ArgumentNullException(nameof(instance));
+
 			ServiceInstance = instance;
 		}
 
@@ -30,9 +33,11 @@ namespace SceneJect.Common
 		/// <typeparam name="TServiceInstanceType"></typeparam>
 		/// <param name="instance"></param>
 		/// <returns></returns>
-		public static Service<TServiceType> As<TServiceInstanceType>(TServiceInstanceType instance)
+		public static Service<TServiceType> As<TServiceInstanceType>([NotNull] TServiceInstanceType instance)
 			where TServiceInstanceType : TServiceType
 		{
+			if (instance == null) throw new ArgumentNullException(nameof(instance));
+
 			if (instance == null)
 				throw new ArgumentNullException(nameof(instance), $"Provided {nameof(instance)} parameter that should be of Type {typeof(TServiceType).FullName} was null.");
 

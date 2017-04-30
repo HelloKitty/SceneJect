@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace SceneJect.Common
 {
@@ -14,6 +15,6 @@ namespace SceneJect.Common
 		void Register<TTypeToRegister>(RegistrationType registerationFlags, Type registerAs = null)
 			where TTypeToRegister : class;
 
-		void Register(DependencyTypePair pair);
+		void Register([NotNull] DependencyTypePair pair);
 	}
 }

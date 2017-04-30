@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -14,9 +15,11 @@ namespace SceneJect.Common
 
 		}
 
-		public TComponentType AddTo<TComponentType>(GameObject gameObject) 
+		public TComponentType AddTo<TComponentType>([NotNull] GameObject gameObject) 
 			where TComponentType : MonoBehaviour
 		{
+			if (gameObject == null) throw new ArgumentNullException(nameof(gameObject));
+
 			//Attach the component to the gameobject
 			TComponentType component = gameObject.AddComponent<TComponentType>();
 

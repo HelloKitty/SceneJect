@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace SceneJect.Common
 {
@@ -10,6 +11,6 @@ namespace SceneJect.Common
 		TTypeToResolve Resolve<TTypeToResolve>()
 			where TTypeToResolve : class;
 
-		object Resolve(Type t);
+		object Resolve([NotNull] Type t);
 	}
 }

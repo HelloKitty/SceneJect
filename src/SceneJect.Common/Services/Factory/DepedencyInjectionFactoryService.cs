@@ -17,7 +17,7 @@ namespace SceneJect.Common
 		/// </summary>
 		protected IInjectionStrategy injectionStrategy { get; }
 
-		public DepedencyInjectionFactoryService(IResolver resolver, IInjectionStrategy injectionStrat)
+		protected DepedencyInjectionFactoryService(IResolver resolver, IInjectionStrategy injectionStrat)
 		{
 			if (resolver == null)
 				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IResolver)} service provided is null.");

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -25,11 +26,10 @@ namespace SceneJect.Common
 			nonBehaviourDependencies = nonBehaviourDependencies.Where(x => x != null).ToList();
 
 			if (!VerifyTypePairs(typePairs))
-				throw new InvalidOperationException(nameof(SceneJector) + " has a malformed " + nameof(DependencyTypePair) +
-						" registered. Must contain a valid MonoBehaviour and selected Type.");
+				throw new InvalidOperationException($"{nameof(SceneJector)} has a malformed {nameof(DependencyTypePair)} registered. Must contain a valid MonoBehaviour and selected Type.");
 
 			if (containerServiceProvider == null)
-				throw new ArgumentNullException(nameof(containerServiceProvider), "Cannot have a null provider for container services. " + nameof(SceneJector) + " requires this for DI.");
+				throw new ArgumentNullException(nameof(containerServiceProvider), $"Cannot have a null provider for container services. {nameof(SceneJector)} requires this for DI.");
 
 			RegisterDependencies(containerServiceProvider);
 			InjectDependencies(containerServiceProvider);
@@ -38,14 +38,13 @@ namespace SceneJect.Common
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
 		{
 			//Don't need to check if it's empty
-			if (pairs.Count() == 0)
-				return true;
-			else
-				return typePairs.Aggregate(true, (x, y) => x && y.isInitialized());
+			return !pairs.Any() || typePairs.Aggregate(true, (x, y) => x && y.isInitialized());
 		}
 
-		private void RegisterDependencies(IServiceRegister register)
+		private void RegisterDependencies([NotNull] IServiceRegister register)
 		{
+			if (register == null) throw new ArgumentNullException(nameof(register));
+
 			foreach (DependencyTypePair dtp in typePairs)
 				register.Register(dtp);
 
@@ -59,8 +58,10 @@ namespace SceneJect.Common
 			register.Register(new DefaultGameObjectComponentAttachmentFactory(containerServiceProvider, new DefaultInjectionStrategy()), RegistrationType.SingleInstance, typeof(IGameObjectComponentAttachmentFactory));
 		}
 
-		private void InjectDependencies(IResolver resolver)
+		private void InjectDependencies([NotNull] IResolver resolver)
 		{
+			if (resolver == null) throw new ArgumentNullException(nameof(resolver));
+
 			InjecteeLocator<MonoBehaviour> behaviours = new InjecteeLocator<MonoBehaviour>();
 
 			foreach(MonoBehaviour b in behaviours)
