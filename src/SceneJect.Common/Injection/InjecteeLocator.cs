@@ -60,7 +60,6 @@ namespace SceneJect.Common
 			//Also, we can avoid another Where call by relying on short-circuit evaluation not executing the second portion if
 			//uneeded which is nice.
 			locatedBehaviours = behavioursToParse
-				.Where(x => x is TBehaviourType)
 				.Where(x => x.GetType().Attributes<InjecteeAttribute>().Any());
 		}
 

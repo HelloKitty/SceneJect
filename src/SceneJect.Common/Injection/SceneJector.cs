@@ -23,7 +23,12 @@ namespace SceneJect.Common
 		{
 			//We remove null values from the collections because they are useless
 			typePairs = typePairs.Where(x => x != null && x.Behaviour != null && x.SelectedType != null).ToList();
-			nonBehaviourDependencies = nonBehaviourDependencies.Where(x => x != null).ToList();
+
+			//Try to gather all the dependency pairs on this type
+			nonBehaviourDependencies = GetComponents<NonBehaviourDependency>()
+				.Concat(nonBehaviourDependencies)
+				.Distinct()
+				.Where(x => x != null).ToList();
 
 			if (!VerifyTypePairs(typePairs))
 				throw new InvalidOperationException($"{nameof(SceneJector)} has a malformed {nameof(DependencyTypePair)} registered. Must contain a valid MonoBehaviour and selected Type.");

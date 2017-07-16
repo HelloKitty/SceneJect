@@ -36,8 +36,7 @@
       <HintPath>..\..\lib\AutofacUnity\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Net35Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Net35Essentials.1.0.2\lib\net35\Net35Essentials.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Net35Essentials.1.0.3\lib\net35\Net35Essentials.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

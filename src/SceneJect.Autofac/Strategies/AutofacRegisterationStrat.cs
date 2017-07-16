@@ -98,7 +98,9 @@ namespace SceneJect.Autofac
 
 			//pairs are externally owned MonoBehaviours that exist in the editor
 			//Register them as such and as the instance to provide
-			builder.RegisterInstance(pair.Behaviour).As(pair.SelectedType).ExternallyOwned();
+			builder.RegisterInstance(pair.Behaviour)
+				.As(pair.SelectedType)
+				.ExternallyOwned();
 		}
 
 		public void Lock()

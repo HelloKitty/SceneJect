@@ -43,6 +43,7 @@ namespace SceneJect.Common
 		{
 			try
 			{
+				//TODO: Implement FreecraftCore injection lambdas
 				foreach (MemberInfo mi in objectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{
 					mi.Set(objectInstance, resolver.Resolve(mi.Type()));

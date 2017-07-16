@@ -15,6 +15,7 @@ namespace SceneJect.Common
 		/// </summary>
 		Default = 0,
 
+		/// <summary>
 		/// This indicates that the dependency is owned externally from the IoC container itself.
 		/// This is generally a preferred flag to set.
 		/// Refer here for more information: http://docs.autofac.org/en/latest/lifetime/disposal.html
