@@ -40,12 +40,13 @@ namespace SceneJect.Autofac.Tests
 			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
 
 			//act
-			register.Register<List<int>>(RegistrationType.Default, typeof(IList<int>));
+			register.RegisterTransient<List<int>, IList<int>>();
 			IContainer container = register.Build();
 
 			//assert
 			Assert.NotNull(container.Resolve<IList<int>>());
 			Assert.Throws<ComponentNotRegisteredException>(() => container.Resolve<List<int>>());
+			Assert.AreNotSame(container.Resolve<IList<int>>(), container.Resolve<IList<int>>());
 		}
 
 		[Test]
@@ -55,7 +56,7 @@ namespace SceneJect.Autofac.Tests
 			AutofacRegisterationStrat register = new AutofacRegisterationStrat(new ContainerBuilder());
 
 			//act
-			register.Register<List<int>>(RegistrationType.SingleInstance, typeof(IList<int>));
+			register.RegisterSingleton<List<int>, IList<int>>();
 			IContainer container = register.Build();
 
 			//assert
@@ -73,7 +74,7 @@ namespace SceneJect.Autofac.Tests
 			List<int> providedInstance = new List<int>();
 
 			//act
-			register.Register(providedInstance, RegistrationType.SingleInstance, typeof(IList<int>));
+			register.RegisterInstance<List<int>, IList<int>>(providedInstance);
 			IContainer container = register.Build();
 
 			//assert

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\InjecteeAttribute.cs" />
+    <Compile Include="Extensions\RegisterationExtensions.cs" />
     <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
     <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
     <Compile Include="Services\Contextual\Component\ContextualComponentDependencyBuilder.cs" />
