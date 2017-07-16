@@ -44,6 +44,23 @@ namespace SceneJect.Common
 		}
 
 		/// <summary>
+		/// Registers an instance of type <typeparamref name="TTypeToRegister"/> as its self.
+		/// </summary>
+		/// <typeparam name="TTypeToRegister"></typeparam>
+		/// <param name="registry"></param>
+		/// <param name="service"></param>
+		/// <returns></returns>
+		public static IServiceRegister RegisterInstance<TTypeToRegister>([NotNull] this IServiceRegister registry, TTypeToRegister service)
+			where TTypeToRegister : class
+		{
+			if (registry == null) throw new ArgumentNullException(nameof(registry));
+
+			registry.Register(service, RegistrationType.AsSelf | RegistrationType.ExternallyOwned | RegistrationType.SingleInstance, null);
+
+			return registry;
+		}
+
+		/// <summary>
 		/// Registers a singleton for <typeparamref name="TTypeToRegister"/> as the indicated
 		/// implemented <typeparamref name="TServiceType"/> Type.
 		/// </summary>
