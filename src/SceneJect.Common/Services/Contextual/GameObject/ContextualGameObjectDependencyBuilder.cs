@@ -12,12 +12,12 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dictionary of mapped Types to service instance.
 		/// </summary>
-		private IDictionary<Type, object> serviceMap { get; }
+		private IDictionary<Type, object> ServiceMap { get; }
 
 		public ContextualGameObjectDependencyBuilder(IResolver defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
-			serviceMap = new Dictionary<Type, object>();
+			ServiceMap = new Dictionary<Type, object>();
 		}
 
 		public IGameObjectContextualBuilder With<TServiceType>([NotNull] IService<TServiceType> service)
@@ -25,7 +25,7 @@ namespace SceneJect.Common
 			if (service == null) throw new ArgumentNullException(nameof(service));
 
 			//Just overide an existing regiseration
-			serviceMap[typeof(TServiceType)] = service.ServiceInstance;
+			ServiceMap[typeof(TServiceType)] = service.ServiceInstance;
 
 			//Return for fluent building
 			return this;
@@ -45,10 +45,10 @@ namespace SceneJect.Common
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
 			//Decorate the current resolver with one that uses the contextual services
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.resolverService, serviceMap);
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.ResolverService, ServiceMap);
 
 			//Inject using the decorated resolver
-			injectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
+			InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
 
 			return obj;
 		}

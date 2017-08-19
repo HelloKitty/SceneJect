@@ -10,12 +10,12 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Resolution service that is being decorated.
 		/// </summary>
-		private IResolver decoratedResolver { get; }
+		private IResolver DecoratedResolver { get; }
 
 		/// <summary>
 		/// Dictionary of mapped Types to dependency instances.
 		/// </summary>
-		private IDictionary<Type, object> contextualDependencyMap { get; }
+		private IDictionary<Type, object> ContextualDependencyMap { get; }
 
 		public ContextualDependencyResolverDecorator(IResolver resolverToDecorate, IDictionary<Type, object> contextualDependencies)
 		{
@@ -25,8 +25,8 @@ namespace SceneJect.Common
 			if (contextualDependencies == null)
 				throw new ArgumentNullException(nameof(contextualDependencies), $"Provided arg {nameof(contextualDependencies)} was null.");
 
-			decoratedResolver = resolverToDecorate;
-			contextualDependencyMap = contextualDependencies;
+			DecoratedResolver = resolverToDecorate;
+			ContextualDependencyMap = contextualDependencies;
 		}
 
 		public TTypeToResolve Resolve<TTypeToResolve>() 
@@ -41,7 +41,7 @@ namespace SceneJect.Common
 
 			//Decorate by providing an instance of the dependency if the contextual "container" has it.
 			//Otherwise we can default the the decorated resolver which is likely to happen.
-			return contextualDependencyMap.ContainsKey(t) ? contextualDependencyMap[t] : decoratedResolver.Resolve(t);
+			return ContextualDependencyMap.ContainsKey(t) ? ContextualDependencyMap[t] : DecoratedResolver.Resolve(t);
 		}
 	}
 }

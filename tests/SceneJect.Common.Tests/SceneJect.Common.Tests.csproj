@@ -65,6 +65,10 @@
       <Project>{35ac7db7-7233-47e9-a909-907879356cc1}</Project>
       <Name>SceneJect.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\SceneJect.Metadata\SceneJect.Metadata.csproj">
+      <Project>{5c60a280-819c-4c4f-8a91-b0f41069dffc}</Project>
+      <Name>SceneJect.Metadata</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

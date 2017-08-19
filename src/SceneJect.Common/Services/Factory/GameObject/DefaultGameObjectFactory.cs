@@ -42,7 +42,7 @@ namespace SceneJect.Common
 		{
 			if (obj == null) throw new ArgumentNullException(nameof(obj));
 
-			injectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolverService);
+			InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), ResolverService);
 
 			return obj;
 		}
@@ -62,7 +62,7 @@ namespace SceneJect.Common
 		public IGameObjectContextualBuilder CreateBuilder()
 		{
 			//Just init a new builder and let the consumer chain requests and generate the gameobject.
-			return new ContextualGameObjectDependencyBuilder(resolverService, injectionStrategy);
+			return new ContextualGameObjectDependencyBuilder(ResolverService, InjectionStrategy);
 		}
 	}
 }

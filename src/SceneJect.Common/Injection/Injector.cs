@@ -12,17 +12,17 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dependency resolution service.
 		/// </summary>
-		private IResolver resolver { get; }
+		private IResolver Resolver { get; }
 
 		/// <summary>
 		/// Type of the object.
 		/// </summary>
-		private Type objectType { get; }
+		private Type ObjectType { get; }
 
 		/// <summary>
 		/// Instance of the object
 		/// </summary>
-		private object objectInstance { get; }
+		private object ObjectInstance { get; }
 
 		//TODO: Stronger typing?
 		public Injector(object instance, IResolver res)
@@ -33,9 +33,9 @@ namespace SceneJect.Common
 			if (res == null)
 				throw new ArgumentNullException(nameof(res), "Cannot resolve types for injection with a null resolver.");
 
-			objectInstance = instance;
-			objectType = instance.GetType();
-			resolver = res;
+			ObjectInstance = instance;
+			ObjectType = instance.GetType();
+			Resolver = res;
 		}
 
 		//TODO: Implement full caching to remember injectable fields for certain types.
@@ -44,14 +44,14 @@ namespace SceneJect.Common
 			try
 			{
 				//TODO: Implement FreecraftCore injection lambdas
-				foreach (MemberInfo mi in objectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
+				foreach (MemberInfo mi in ObjectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{
-					mi.Set(objectInstance, resolver.Resolve(mi.Type()));
+					mi.Set(ObjectInstance, Resolver.Resolve(mi.Type()));
 				}
 			}
 			catch (Exception e)
 			{
-				throw new InvalidOperationException($"Error: {e.Message} failed to inject for {objectType} on instance: {objectInstance}", e);
+				throw new InvalidOperationException($"Error: {e.Message} failed to inject for {ObjectType} on instance: {ObjectInstance}", e);
 			}
 		}
 	}

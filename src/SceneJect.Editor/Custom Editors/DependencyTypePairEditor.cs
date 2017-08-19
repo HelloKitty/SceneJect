@@ -9,11 +9,14 @@ using UnityEngine;
 
 namespace SceneJect.CustomEditors
 {
+	//TODO: Rewrite the editor
 	[CustomPropertyDrawer(typeof(DependencyTypePair))]
 	public class DependencyTypePairEditor : PropertyDrawer
 	{
 		private Dictionary<Type, IEnumerable<Type>> cachedTypeDictionary { get; } = new Dictionary<Type, IEnumerable<Type>>();
+
 		private Dictionary<Type, IEnumerable<string>> cachedAssemblyQualifiedNames { get; } = new Dictionary<Type, IEnumerable<string>>();
+
 		private Dictionary<Type, IEnumerable<string>> cachedShortTypeNames { get; } = new Dictionary<Type, IEnumerable<string>>();
 
 		public override float GetPropertyHeight(SerializedProperty property, UnityEngine.GUIContent label)

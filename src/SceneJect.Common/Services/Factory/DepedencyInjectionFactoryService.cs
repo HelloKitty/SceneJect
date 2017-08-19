@@ -10,12 +10,12 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Service for resolving dependencies.
 		/// </summary>
-		protected IResolver resolverService { get; }
+		protected IResolver ResolverService { get; }
 
 		/// <summary>
 		/// Strategy for injection.
 		/// </summary>
-		protected IInjectionStrategy injectionStrategy { get; }
+		protected IInjectionStrategy InjectionStrategy { get; }
 
 		protected DepedencyInjectionFactoryService(IResolver resolver, IInjectionStrategy injectionStrat)
 		{
@@ -25,8 +25,8 @@ namespace SceneJect.Common
 			if (injectionStrat == null)
 				throw new ArgumentNullException(nameof(injectionStrat), $"Provided {nameof(IInjectionStrategy)} service provided is null.");
 
-			injectionStrategy = injectionStrat;
-			resolverService = resolver;
+			InjectionStrategy = injectionStrat;
+			ResolverService = resolver;
 		}
 	}
 }

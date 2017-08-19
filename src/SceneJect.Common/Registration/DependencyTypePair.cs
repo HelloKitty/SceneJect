@@ -11,25 +11,25 @@ namespace SceneJect.Common
 	public class DependencyTypePair
 	{
 		[SerializeField]
-		private MonoBehaviour _Behaviour;
+		private MonoBehaviour behaviour;
+		public MonoBehaviour Behaviour => behaviour;
 
-		public MonoBehaviour Behaviour => _Behaviour;
+		//TODO: Should these be hidden behind properties?
+		[SerializeField]
+		private string[] ImplementedTypes = new string[0];
 
 		[SerializeField]
-		private string[] _ImplementedTypes = new string[0];
+		public string SelectedTypeString;
 
 		[SerializeField]
-		public string _SelectedType;
+		private int SelectedPopupIndex;
 
-		[SerializeField]
-		private int _SelectedPopupIndex;
-
-		public Type SelectedType => Type.GetType(_SelectedType);
+		public Type SelectedType => Type.GetType(SelectedTypeString);
 
 		public DependencyTypePair(MonoBehaviour behaviour, Type type)
 		{
-			_Behaviour = behaviour;
-			_SelectedType = type.AssemblyQualifiedName;
+			this.behaviour = behaviour;
+			SelectedTypeString = type.AssemblyQualifiedName;
 		}
 
 		//TODO: Why do we do this? Why are we not forcing non-null?

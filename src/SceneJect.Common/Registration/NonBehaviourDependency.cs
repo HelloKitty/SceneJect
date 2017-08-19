@@ -9,15 +9,15 @@ namespace SceneJect.Common
 	public abstract class NonBehaviourDependency : MonoBehaviour
 	{
 		[SerializeField]
-		private List<RegistrationType> _RegisterFlags;
+		private List<RegistrationType> registerFlags;
 
-		protected IEnumerable<RegistrationType> registerFlags => _RegisterFlags;
+		protected IEnumerable<RegistrationType> RegisterFlags => registerFlags;
 
 		public abstract void Register(IServiceRegister register);
 
-		protected RegistrationType getFlags()
+		protected RegistrationType ComputeFlags()
 		{
-			return _RegisterFlags.Distinct()
+			return registerFlags.Distinct()
 				.Aggregate(RegistrationType.Default, (f, s) => f | s);
 		}
 	}

@@ -9,24 +9,23 @@ namespace SceneJect.Autofac
 {
 	public class AutofacResolverStrat : IResolver
 	{
-		private readonly IContainer container;
+		private IContainer Container { get; }
 
 		public AutofacResolverStrat(IContainer autofacContainer)
 		{
 			if (autofacContainer == null)
 				throw new ArgumentNullException(nameof(autofacContainer), "Cannot have a valid resolve strat with a null container.");
 
-			container = autofacContainer;
+			Container = autofacContainer;
 		}
 
 		public TTypeToResolve Resolve<TTypeToResolve>()
 			where TTypeToResolve : class
 		{
+			if (!Container.IsRegistered<TTypeToResolve>())
+				throw new Exception($"{typeof(TTypeToResolve)} was requested from the container but is unavailable.");
 
-			if (!container.IsRegistered<TTypeToResolve>())
-				throw new Exception(typeof(TTypeToResolve).ToString() + " was requested from the container but is unavailable.");
-
-			return container.Resolve<TTypeToResolve>();
+			return Container.Resolve<TTypeToResolve>();
 		}
 
 		public object Resolve(Type t)
@@ -35,12 +34,12 @@ namespace SceneJect.Autofac
 				throw new ArgumentNullException(nameof(t), "Cannot resolve a null type.");
 
 			if (t.IsValueType)
-				throw new InvalidOperationException("Cannot resolve value types: " + t.ToString());
+				throw new InvalidOperationException($"Cannot resolve value types: {t}.");
 
-			if (!container.IsRegistered(t))
-				throw new Exception(t.ToString() + " was requested from the container but is unavailable.");
+			if (!Container.IsRegistered(t))
+				throw new Exception($"{t} was requested from the container but is unavailable.");
 
-			return container.Resolve(t);
+			return Container.Resolve(t);
 		}
 	}
 }

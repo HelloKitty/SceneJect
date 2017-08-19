@@ -24,7 +24,7 @@ namespace SceneJect.Common
 			TComponentType component = gameObject.AddComponent<TComponentType>();
 
 			//After you attach it then you must pass it along to the injection strategy so that its dependencies can be resolved.
-			this.injectionStrategy.InjectDependencies(component, this.resolverService);
+			this.InjectionStrategy.InjectDependencies(component, this.ResolverService);
 
 			return component;
 		}
@@ -32,7 +32,7 @@ namespace SceneJect.Common
 		public IComponentContextualBuilder CreateBuilder()
 		{
 			//Just return the default one
-			return new ContextualComponentDependencyBuilder(resolverService, injectionStrategy);
+			return new ContextualComponentDependencyBuilder(ResolverService, InjectionStrategy);
 		}
 	}
 }

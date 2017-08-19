@@ -49,8 +49,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\InjectAttribute.cs" />
-    <Compile Include="Attributes\InjecteeAttribute.cs" />
     <Compile Include="Extensions\RegisterationExtensions.cs" />
     <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
     <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
@@ -83,7 +81,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SceneJect.Metadata\SceneJect.Metadata.csproj">
+      <Project>{5c60a280-819c-4c4f-8a91-b0f41069dffc}</Project>
+      <Name>SceneJect.Metadata</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
