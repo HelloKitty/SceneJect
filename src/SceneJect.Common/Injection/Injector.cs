@@ -46,7 +46,14 @@ namespace SceneJect.Common
 				//TODO: Implement FreecraftCore injection lambdas
 				foreach (MemberInfo mi in ObjectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{
-					mi.Set(ObjectInstance, Resolver.Resolve(mi.Type()));
+					//Based on FreecraftCore's: https://github.com/FreecraftCore/FreecraftCore.Serializer/blob/152fda27c46fcfcaa72d3568c1a591d728773f33/src/FreecraftCore.Serializer.API/Reflection/Serialization/MemberSerializationMediator.cs
+					if (mi is PropertyInfo && !((PropertyInfo)mi).CanWrite)
+					{
+						//If it's a property and it's a readonly one we'll try to grab the backing field
+						ObjectInstance.SetFieldValue($"<{mi.Name}>k__BackingField", Resolver.Resolve(mi.Type()));
+					}
+					else
+						mi.Set(ObjectInstance, Resolver.Resolve(mi.Type()));
 				}
 			}
 			catch (Exception e)
