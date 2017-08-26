@@ -27,10 +27,10 @@ namespace SceneJect.CustomEditors
 		//TODO: Refactor
 		public override void OnGUI(UnityEngine.Rect position, SerializedProperty property, UnityEngine.GUIContent label)
 		{
-			property.FindPropertyRelative("_Behaviour").objectReferenceValue = EditorGUI.ObjectField(new Rect(position.left, position.top, position.width, 15), "Dependency:", property.FindPropertyRelative("_Behaviour").objectReferenceValue, 
+			property.FindPropertyRelative("behaviour").objectReferenceValue = EditorGUI.ObjectField(new Rect(position.left, position.top, position.width, 15), "Dependency:", property.FindPropertyRelative("behaviour").objectReferenceValue, 
 				typeof(MonoBehaviour), true) as MonoBehaviour;
 
-			MonoBehaviour behaviour = property.FindPropertyRelative("_Behaviour").objectReferenceValue as MonoBehaviour;
+			MonoBehaviour behaviour = property.FindPropertyRelative("behaviour").objectReferenceValue as MonoBehaviour;
 
 			if (behaviour == null)
 				return;
@@ -42,14 +42,14 @@ namespace SceneJect.CustomEditors
 
 				cachedAssemblyQualifiedNames[behaviour.GetType()] = FindTypes(behaviour).Select(x => x.AssemblyQualifiedName);
 
-				property.FindPropertyRelative("_ImplementedTypes")
+				property.FindPropertyRelative("ImplementedTypes")
 					.WriteSerializedArray(cachedAssemblyQualifiedNames[behaviour.GetType()].ToArray());
 			}
 
 			if (!cachedTypeDictionary.ContainsKey(behaviour.GetType()))
 			{
 				//Let's just draw a label telling the user what type was last selected.
-				string val = property.FindPropertyRelative("_SelectedType").stringValue;
+				string val = property.FindPropertyRelative(nameof(DependencyTypePair.SelectedTypeString)).stringValue;
 				//WARNING: If you modify this rect modify the one about the popuplist.
 				GUI.Label(new Rect(position.left, position.top + 50, position.width, 20), String.Concat("Current Type: ", val == null ? "[NONE]" : val.Split(',')[0]));	
 				return;
@@ -59,10 +59,10 @@ namespace SceneJect.CustomEditors
 				cachedShortTypeNames[behaviour.GetType()] = 
 					cachedAssemblyQualifiedNames[behaviour.GetType()].Select(x => x.Split(',')[0]).ToArray();
 
-			SerializedProperty indexProp = property.FindPropertyRelative("_SelectedPopupIndex");
+			SerializedProperty indexProp = property.FindPropertyRelative("SelectedPopupIndex");
 
 			int index = indexProp.intValue;
-			string selectedTypeString = property.FindPropertyRelative("_SelectedType").stringValue;
+			string selectedTypeString = property.FindPropertyRelative(nameof(DependencyTypePair.SelectedTypeString)).stringValue;
 
 			//This can occur if the class declaration changes in such a way that the total amount of inherited or implemented types
 			//are less than the last selected index of the Type selection.
@@ -109,7 +109,7 @@ namespace SceneJect.CustomEditors
 			index = EditorGUI.Popup(new Rect(position.left, position.top + 50, position.width, 20), index, cachedShortTypeNames[behaviour.GetType()].ToArray());
 			indexProp.intValue = index;
 
-			property.FindPropertyRelative("_SelectedType").stringValue = cachedFullTypeNamesForBehaviour[index];
+			property.FindPropertyRelative(nameof(DependencyTypePair.SelectedTypeString)).stringValue = cachedFullTypeNamesForBehaviour[index];
 		}
 
 		private IEnumerable<Type> FindTypes([NotNull] MonoBehaviour b)
