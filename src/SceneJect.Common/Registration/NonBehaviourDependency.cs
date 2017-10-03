@@ -6,19 +6,17 @@ using UnityEngine;
 
 namespace SceneJect.Common
 {
+	/// <summary>
+	/// MonoBehaviour that can be inherited from to register dependencies
+	/// that aren't MonoBehaviour and thus don't exist in the scene or can't
+	/// exist in the scene.
+	/// </summary>
 	public abstract class NonBehaviourDependency : MonoBehaviour
 	{
-		[SerializeField]
-		private List<RegistrationType> registerFlags;
-
-		protected IEnumerable<RegistrationType> RegisterFlags => registerFlags;
-
+		/// <summary>
+		/// Called when registeration is happening by Sceneject.
+		/// </summary>
+		/// <param name="register">A non-null registeration object.</param>
 		public abstract void Register(IServiceRegister register);
-
-		protected RegistrationType ComputeFlags()
-		{
-			return registerFlags.Distinct()
-				.Aggregate(RegistrationType.Default, (f, s) => f | s);
-		}
 	}
 }
