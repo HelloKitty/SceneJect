@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 
 namespace SceneJect.Common
 {
@@ -10,11 +11,12 @@ namespace SceneJect.Common
 	/// an instance of a service that can be assigned to <typeparamref name="TServiceType"/>
 	/// </summary>
 	/// <typeparam name="TServiceType"></typeparam>
-	public interface IService<TServiceType>
+	public interface IService<out TServiceType>
+		where TServiceType : class
 	{
 		/// <summary>
 		/// Instance of a <typeparamref name="TServiceType"/>.
 		/// </summary>
-		TServiceType ServiceInstance { get; }
+		Func<IComponentContext, TServiceType> ServiceInstance { get; }
 	}
 }

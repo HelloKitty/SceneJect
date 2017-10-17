@@ -14,15 +14,16 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dictionary of mapped Types to service instance.
 		/// </summary>
-		private IDictionary<Type, object> ServiceMap { get; }
+		private IDictionary<Type, Func<IComponentContext, object>> ServiceMap { get; }
 
 		public ContextualComponentDependencyBuilder([NotNull] IComponentContext defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
-			ServiceMap = new Dictionary<Type, object>();
+			ServiceMap = new Dictionary<Type, Func<IComponentContext, object>>(5);
 		}
 
-		public IComponentContextualBuilder With<TServiceType>([NotNull] IService<TServiceType> service)
+		public IComponentContextualBuilder With<TServiceType>([NotNull] IService<TServiceType> service) 
+			where TServiceType : class
 		{
 			if (service == null) throw new ArgumentNullException(nameof(service));
 

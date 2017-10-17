@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using JetBrains.Annotations;
 
 namespace SceneJect.Common
@@ -12,17 +13,19 @@ namespace SceneJect.Common
 	/// of the service.
 	/// </summary>
 	/// <typeparam name="TServiceType"></typeparam>
-	public class Service<TServiceType> : IService<TServiceType>
+	public class Service<TServiceType> : IService<TServiceType> 
+		where TServiceType : class
 	{
 		/// <summary>
 		/// An instance of the service.
 		/// </summary>
-		public TServiceType ServiceInstance { get; }
+		public Func<IComponentContext, TServiceType> ServiceInstance { get; }
 
 		//Hide so that they use fluent As construction
-		protected Service([NotNull] TServiceType instance)
+
+		protected Service(Func<IComponentContext, TServiceType> instance)
 		{
-			if (instance == null) throw new ArgumentNullException(nameof(instance));
+			if(instance == null) throw new ArgumentNullException(nameof(instance));
 
 			ServiceInstance = instance;
 		}
@@ -36,8 +39,19 @@ namespace SceneJect.Common
 		public static Service<TServiceType> As<TServiceInstanceType>([NotNull] TServiceInstanceType instance)
 			where TServiceInstanceType : TServiceType
 		{
-			if (instance == null) throw new ArgumentNullException(nameof(instance));
+			if (instance == null)
+				throw new ArgumentNullException(nameof(instance), $"Provided {nameof(instance)} parameter that should be of Type {typeof(TServiceType).FullName} was null.");
 
+			return new Service<TServiceType>(resolver => instance);
+		}
+
+		/// <summary>
+		/// Constructs a new Service pair that maps the <paramref name="instance"/> to all services of <typeparamref name="TServiceType"/>.
+		/// </summary>
+		/// <param name="instance"></param>
+		/// <returns></returns>
+		public static Service<TServiceType> As(Func<IComponentContext, TServiceType> instance)
+		{
 			if (instance == null)
 				throw new ArgumentNullException(nameof(instance), $"Provided {nameof(instance)} parameter that should be of Type {typeof(TServiceType).FullName} was null.");
 

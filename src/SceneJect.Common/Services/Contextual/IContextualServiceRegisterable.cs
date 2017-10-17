@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SceneJect.Common
 {
-	public interface IContextualServiceRegisterable<TFluentReturnType>
+	public interface IContextualServiceRegisterable<out TFluentReturnType>
 	{
 		/// <summary>
 		/// Adds the provided <see cref="IService{TServiceType}"/> information to the builder.
@@ -13,6 +13,7 @@ namespace SceneJect.Common
 		/// <typeparam name="TServiceType">Type of the service.</typeparam>
 		/// <param name="service">Service information object.</param>
 		/// <returns></returns>
-		TFluentReturnType With<TServiceType>(IService<TServiceType> service);
+		TFluentReturnType With<TServiceType>(IService<TServiceType> service) 
+			where TServiceType : class;
 	}
 }

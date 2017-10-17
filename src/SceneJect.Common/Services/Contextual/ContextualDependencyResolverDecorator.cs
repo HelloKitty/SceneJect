@@ -17,13 +17,13 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dictionary of mapped Types to dependency instances.
 		/// </summary>
-		private IDictionary<Type, object> ContextualDependencyMap { get; }
+		private IDictionary<Type, Func<IComponentContext, object>> ContextualDependencyMap { get; }
 
 		//Autofac interface stuff
 		/// <inheritdoc />
 		public IComponentRegistry ComponentRegistry => DecoratedResolver.ComponentRegistry;
 
-		public ContextualDependencyResolverDecorator(IComponentContext resolverToDecorate, IDictionary<Type, object> contextualDependencies)
+		public ContextualDependencyResolverDecorator(IComponentContext resolverToDecorate, IDictionary<Type, Func<IComponentContext, object>> contextualDependencies)
 		{
 			if (resolverToDecorate == null)
 				throw new ArgumentNullException(nameof(resolverToDecorate), $"Provided arg {nameof(resolverToDecorate)} was null.");
@@ -47,7 +47,7 @@ namespace SceneJect.Common
 
 			//Decorate by providing an instance of the dependency if the contextual "container" has it.
 			//Otherwise we can default the the decorated resolver which is likely to happen.
-			return ContextualDependencyMap.ContainsKey(t) ? ContextualDependencyMap[t] : DecoratedResolver.Resolve(t);
+			return ContextualDependencyMap.ContainsKey(t) ? ContextualDependencyMap[t](DecoratedResolver) : DecoratedResolver.Resolve(t);
 		}
 
 		/// <inheritdoc />

@@ -16,7 +16,7 @@ namespace SceneJect.Common.Tests
 		public static void Test_Ctor_Doesnt_Throw()
 		{
 			//assert
-			Assert.DoesNotThrow(() => new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), Mock.Of<IDictionary<Type, object>>()));
+			Assert.DoesNotThrow(() => new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), Mock.Of<IDictionary<Type, Func<IComponentContext, object>>>()));
 		}
 
 		[Test]
@@ -26,7 +26,7 @@ namespace SceneJect.Common.Tests
 		public static void Test_Resolver_Resolves_Contextual_Instance_String(string sValue)
 		{
 			//arrange
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), new Dictionary<Type, object>() { { typeof(string), sValue } });
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), new Dictionary<Type, Func<IComponentContext, object>>() { { typeof(string), c => sValue } });
 
 			//act
 			string value = resolver.Resolve<string>();
@@ -45,7 +45,7 @@ namespace SceneJect.Common.Tests
 		public static void Test_Resolver_Resolves_Contextual_Instance_String_With_Multiple_Services(string sValue)
 		{
 			//arrange
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), new Dictionary<Type, object>() { { typeof(string), sValue }, { typeof(int), 5 } });
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(Mock.Of<IComponentContext>(), new Dictionary<Type, Func<IComponentContext, object>>() { { typeof(string), c => sValue }, { typeof(int), c => 5 } });
 
 			//act
 			string value = resolver.Resolve<string>();
@@ -72,7 +72,7 @@ namespace SceneJect.Common.Tests
 
 			IComponentContext resolveComponent = builder.Build();
 
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(resolveComponent, new Dictionary<Type, object>() { { typeof(string), sValue }, { typeof(int), iValue } });
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(resolveComponent, new Dictionary<Type, Func<IComponentContext, object>>() { { typeof(string), c => sValue }, { typeof(int), c => iValue } });
 
 			//act
 			string stringValue = resolver.Resolve<string>();
