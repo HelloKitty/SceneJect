@@ -16,12 +16,14 @@ namespace SceneJect.Common
 		[SerializeField]
 		private List<NonBehaviourDependency> NonBehaviourDependencies;
 
-		private Autofac.ContainerBuilder AutofacContainerBuilder { get; }
+		private Autofac.ContainerBuilder AutofacContainerBuilder { get; set; }
 
 		private IContainer BuiltContainerResolver { get; set; }
 
 		private void Awake()
 		{
+			AutofacContainerBuilder = new ContainerBuilder();
+
 			//We remove null values from the collections because they are useless
 			TypePairs = TypePairs.Where(x => x != null && x.Behaviour != null && x.SelectedType != null).ToList();
 
