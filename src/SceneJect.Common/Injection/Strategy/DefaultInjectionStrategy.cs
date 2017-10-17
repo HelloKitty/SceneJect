@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace SceneJect.Common
 			//dont need to do anything.
 		}
 
-		public void InjectDependencies<TBehaviourType>([NotNull] TBehaviourType behaviour, [NotNull] IResolver serviceResolutionService) 
+		public void InjectDependencies<TBehaviourType>([NotNull] TBehaviourType behaviour, [NotNull] IComponentContext serviceResolutionService) 
 			where TBehaviourType : MonoBehaviour
 		{
 			if (behaviour == null) throw new ArgumentNullException(nameof(behaviour));
@@ -29,7 +30,7 @@ namespace SceneJect.Common
 			injecter.Inject();
 		}
 
-		public void InjectDependencies<TBehaviourType>([NotNull] IEnumerable<TBehaviourType> behaviours, [NotNull] IResolver serviceResolutionService) 
+		public void InjectDependencies<TBehaviourType>([NotNull] IEnumerable<TBehaviourType> behaviours, [NotNull] IComponentContext serviceResolutionService) 
 			where TBehaviourType : MonoBehaviour
 		{
 			if (behaviours == null) throw new ArgumentNullException(nameof(behaviours));

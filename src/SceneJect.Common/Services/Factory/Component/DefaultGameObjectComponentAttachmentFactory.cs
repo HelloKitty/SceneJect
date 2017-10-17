@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace SceneJect.Common
 {
 	public class DefaultGameObjectComponentAttachmentFactory : DepedencyInjectionFactoryService, IGameObjectComponentAttachmentFactory
 	{
-		public DefaultGameObjectComponentAttachmentFactory(IResolver resolver, IInjectionStrategy injectionStrat)
+		public DefaultGameObjectComponentAttachmentFactory(IComponentContext resolver, IInjectionStrategy injectionStrat)
 			: base(resolver, injectionStrat)
 		{
 

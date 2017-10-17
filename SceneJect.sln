@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Editor", "src\SceneJect.Editor\SceneJect.Editor.csproj", "{C6091EA8-3C2D-42BF-B69C-68000D9BA9F4}"
 EndProject
@@ -12,10 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Common", "src\SceneJect.Common\SceneJect.Common.csproj", "{35AC7DB7-7233-47E9-A909-907879356CC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Common.Tests", "tests\SceneJect.Common.Tests\SceneJect.Common.Tests.csproj", "{3323C585-D3EC-4D52-801A-B4F2B508B3EF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Autofac", "src\SceneJect.Autofac\SceneJect.Autofac.csproj", "{9D220E6B-6B68-4DCE-A069-3022A5082C2B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Autofac.Tests", "tests\SceneJect.Autofac.Tests\SceneJect.Autofac.Tests.csproj", "{746A94E9-D590-4CC4-9915-CB8AE55DC93E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneJect.Metadata", "src\SceneJect.Metadata\SceneJect.Metadata.csproj", "{5C60A280-819C-4C4F-8A91-B0F41069DFFC}"
 EndProject
@@ -37,14 +33,6 @@ Global
 		{3323C585-D3EC-4D52-801A-B4F2B508B3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3323C585-D3EC-4D52-801A-B4F2B508B3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3323C585-D3EC-4D52-801A-B4F2B508B3EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D220E6B-6B68-4DCE-A069-3022A5082C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D220E6B-6B68-4DCE-A069-3022A5082C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D220E6B-6B68-4DCE-A069-3022A5082C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D220E6B-6B68-4DCE-A069-3022A5082C2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{746A94E9-D590-4CC4-9915-CB8AE55DC93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{746A94E9-D590-4CC4-9915-CB8AE55DC93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{746A94E9-D590-4CC4-9915-CB8AE55DC93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{746A94E9-D590-4CC4-9915-CB8AE55DC93E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C60A280-819C-4C4F-8A91-B0F41069DFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C60A280-819C-4C4F-8A91-B0F41069DFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C60A280-819C-4C4F-8A91-B0F41069DFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,8 +45,9 @@ Global
 		{C6091EA8-3C2D-42BF-B69C-68000D9BA9F4} = {21F6AEA9-D88A-4203-B95D-ACB179E79B73}
 		{35AC7DB7-7233-47E9-A909-907879356CC1} = {21F6AEA9-D88A-4203-B95D-ACB179E79B73}
 		{3323C585-D3EC-4D52-801A-B4F2B508B3EF} = {0F78506F-DF78-4594-8BB8-A235C454EC7B}
-		{9D220E6B-6B68-4DCE-A069-3022A5082C2B} = {21F6AEA9-D88A-4203-B95D-ACB179E79B73}
-		{746A94E9-D590-4CC4-9915-CB8AE55DC93E} = {0F78506F-DF78-4594-8BB8-A235C454EC7B}
 		{5C60A280-819C-4C4F-8A91-B0F41069DFFC} = {21F6AEA9-D88A-4203-B95D-ACB179E79B73}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACE806F6-F21E-4FF9-BA03-21C5BB691AAB}
 	EndGlobalSection
 EndGlobal

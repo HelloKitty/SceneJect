@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using UnityEngine;
 
 namespace SceneJect.Common
@@ -17,6 +18,6 @@ namespace SceneJect.Common
 		/// Called when registeration is happening by Sceneject.
 		/// </summary>
 		/// <param name="register">A non-null registeration object.</param>
-		public abstract void Register(IServiceRegister register);
+		public abstract void Register(ContainerBuilder register);
 	}
 }

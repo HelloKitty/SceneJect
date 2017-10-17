@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 
 namespace SceneJect.Common
 {
@@ -10,17 +11,17 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Service for resolving dependencies.
 		/// </summary>
-		protected IResolver ResolverService { get; }
+		protected IComponentContext ResolverService { get; }
 
 		/// <summary>
 		/// Strategy for injection.
 		/// </summary>
 		protected IInjectionStrategy InjectionStrategy { get; }
 
-		protected DepedencyInjectionFactoryService(IResolver resolver, IInjectionStrategy injectionStrat)
+		protected DepedencyInjectionFactoryService(IComponentContext resolver, IInjectionStrategy injectionStrat)
 		{
 			if (resolver == null)
-				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IResolver)} service provided is null.");
+				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IComponentContext)} service provided is null.");
 
 			if (injectionStrat == null)
 				throw new ArgumentNullException(nameof(injectionStrat), $"Provided {nameof(IInjectionStrategy)} service provided is null.");

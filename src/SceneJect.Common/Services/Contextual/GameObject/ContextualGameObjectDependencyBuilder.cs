@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace SceneJect.Common
 		/// </summary>
 		private IDictionary<Type, object> ServiceMap { get; }
 
-		public ContextualGameObjectDependencyBuilder(IResolver defaultResolver, IInjectionStrategy injectionStrategy)
+		public ContextualGameObjectDependencyBuilder(IComponentContext defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
 			ServiceMap = new Dictionary<Type, object>();
@@ -45,7 +46,7 @@ namespace SceneJect.Common
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
 			//Decorate the current resolver with one that uses the contextual services
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.ResolverService, ServiceMap);
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(ResolverService, ServiceMap);
 
 			//Inject using the decorated resolver
 			InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Autofac;
 using Fasterflect;
 
 namespace SceneJect.Common
@@ -12,7 +13,7 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dependency resolution service.
 		/// </summary>
-		private IResolver Resolver { get; }
+		private IComponentContext Resolver { get; }
 
 		/// <summary>
 		/// Type of the object.
@@ -25,7 +26,7 @@ namespace SceneJect.Common
 		private object ObjectInstance { get; }
 
 		//TODO: Stronger typing?
-		public Injector(object instance, IResolver res)
+		public Injector(object instance, IComponentContext res)
 		{
 			if (instance == null)
 				throw new ArgumentNullException(nameof(instance), "Cannot inject into a null instance.");
@@ -43,6 +44,7 @@ namespace SceneJect.Common
 		{
 			try
 			{
+				//TODO: Check if autofac performance better than this.
 				//TODO: Implement FreecraftCore injection lambdas
 				foreach (MemberInfo mi in ObjectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{

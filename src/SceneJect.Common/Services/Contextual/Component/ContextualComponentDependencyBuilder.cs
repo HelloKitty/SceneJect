@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace SceneJect.Common
 		/// </summary>
 		private IDictionary<Type, object> ServiceMap { get; }
 
-		public ContextualComponentDependencyBuilder([NotNull] IResolver defaultResolver, IInjectionStrategy injectionStrategy)
+		public ContextualComponentDependencyBuilder([NotNull] IComponentContext defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
 			ServiceMap = new Dictionary<Type, object>();

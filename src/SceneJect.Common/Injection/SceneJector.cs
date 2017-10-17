@@ -16,8 +16,9 @@ namespace SceneJect.Common
 		[SerializeField]
 		private List<NonBehaviourDependency> NonBehaviourDependencies;
 
-		[SerializeField]
-		private ContainerServiceProvider ContainerServiceProvider;
+		private Autofac.ContainerBuilder AutofacContainerBuilder { get; }
+
+		private IContainer BuiltContainerResolver { get; set; }
 
 		private void Awake()
 		{
@@ -33,11 +34,8 @@ namespace SceneJect.Common
 			if (!VerifyTypePairs(TypePairs))
 				throw new InvalidOperationException($"{nameof(SceneJector)} has a malformed {nameof(DependencyTypePair)} registered. Must contain a valid MonoBehaviour and selected Type.");
 
-			if (ContainerServiceProvider == null)
-				throw new ArgumentNullException(nameof(ContainerServiceProvider), $"Cannot have a null provider for container services. {nameof(SceneJector)} requires this for DI.");
-
-			RegisterDependencies(ContainerServiceProvider);
-			InjectDependencies(ContainerServiceProvider);
+			RegisterDependencies();
+			InjectDependencies();
 		}
 
 		private bool VerifyTypePairs(IEnumerable<DependencyTypePair> pairs)
@@ -46,32 +44,37 @@ namespace SceneJect.Common
 			return !pairs.Any() || TypePairs.Aggregate(true, (x, y) => x && y.isInitialized());
 		}
 
-		private void RegisterDependencies([NotNull] IServiceRegister register)
+		private void RegisterDependencies()
 		{
-			if (register == null) throw new ArgumentNullException(nameof(register));
-
-			foreach (DependencyTypePair dtp in TypePairs)
-				register.Register(dtp);
+			//Register each DP as the type it selected to expose
+			foreach(DependencyTypePair dtp in TypePairs)
+				AutofacContainerBuilder.RegisterInstance(dtp.Behaviour)
+					.As(dtp.SelectedType);
 
 			//the IoC container visits each dependency registeration object
 			//This allows the registeration logic to be handled differently
 			foreach (var nbd in NonBehaviourDependencies)
-				nbd.Register(register);
+				nbd.Register(AutofacContainerBuilder);
 
 			//Register the GameObjectFactory and ComponentFactory too
-			register.Register(new DefaultGameObjectFactory(ContainerServiceProvider, new DefaultInjectionStrategy()), RegistrationType.SingleInstance, typeof(IGameObjectFactory));
-			register.Register(new DefaultGameObjectComponentAttachmentFactory(ContainerServiceProvider, new DefaultInjectionStrategy()), RegistrationType.SingleInstance, typeof(IGameObjectComponentAttachmentFactory));
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectFactory(context, new DefaultInjectionStrategy()))
+				.As<IGameObjectFactory>()
+				.SingleInstance();
+
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectComponentAttachmentFactory(context, new DefaultInjectionStrategy()))
+				.As<IGameObjectFactory>()
+				.SingleInstance();
+
+			BuiltContainerResolver = AutofacContainerBuilder.Build();
 		}
 
-		private void InjectDependencies([NotNull] IResolver resolver)
+		private void InjectDependencies()
 		{
-			if (resolver == null) throw new ArgumentNullException(nameof(resolver));
-
 			InjecteeLocator<MonoBehaviour> behaviours = new InjecteeLocator<MonoBehaviour>();
 
 			foreach(MonoBehaviour b in behaviours)
 			{
-				Injector injector = new Injector(b, resolver);
+				Injector injector = new Injector(b, BuiltContainerResolver);
 
 				injector.Inject();
 			}

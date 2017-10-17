@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autofac;
+using Autofac.Core;
 
 namespace SceneJect.Common.Tests
 {
@@ -15,18 +17,18 @@ namespace SceneJect.Common.Tests
 		public static void Test_Injector_Ctor_With_Null_Values()
 		{
 			//assert
-			Assert.Throws<ArgumentNullException>(() => new Injector(null, Mock.Of<IResolver>()));
-			Assert.Throws<ArgumentNullException>(() => new Injector(Mock.Of<IResolver>(), null));
+			Assert.Throws<ArgumentNullException>(() => new Injector(null, Mock.Of<IComponentContext>()));
+			Assert.Throws<ArgumentNullException>(() => new Injector(Mock.Of<IComponentContext>(), null));
 		}
 
 		[Test]
 		public static void Test_Injector_Throws_When_Resolver_Throws()
 		{
 			//arrange
-			Mock<IResolver> resolver = new Mock<IResolver>(MockBehavior.Strict);
+			Mock<IComponentContext> resolver = new Mock<IComponentContext>(MockBehavior.Strict);
 
 			//set it up to throw on any resolve
-			resolver.Setup(x => x.Resolve(It.IsAny<Type>()))
+			resolver.Setup(x => x.ResolveComponent(It.IsAny<IComponentRegistration>(), It.IsAny<IEnumerable<Parameter>>()))
 				.Throws<Exception>();
 
 			Injector injector = new Injector(new TestClass(), resolver.Object);
@@ -39,14 +41,18 @@ namespace SceneJect.Common.Tests
 		public static void Test_Injector_Sets_Values()
 		{
 			//arrange
-			Mock<IResolver> resolver = new Mock<IResolver>(MockBehavior.Strict);
+		
+			ContainerBuilder builder = new ContainerBuilder();
+			builder.RegisterInstance(new List<int>() { 1, 2, 3 })
+				.AsSelf()
+				.AsImplementedInterfaces()
+				.SingleInstance();
+
+			IComponentContext resolveComponent = builder.Build();
+
 			TestClass testInstance = new TestClass();
 
-			//set it up to throw on any resolve
-			resolver.Setup(x => x.Resolve(It.IsAny<Type>()))
-				.Returns(new List<int>() { 1, 2, 3 });
-
-			Injector injector = new Injector(testInstance, resolver.Object);
+			Injector injector = new Injector(testInstance, resolveComponent);
 
 			//assert
 			Assert.DoesNotThrow(() => injector.Inject());

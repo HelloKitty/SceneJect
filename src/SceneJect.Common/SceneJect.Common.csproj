@@ -33,15 +33,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\lib\AutofacUnity\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\fasterflect.2.1.3\lib\net35\Fasterflect.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -51,7 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\RegisterationExtensions.cs" />
     <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
     <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
     <Compile Include="Services\Contextual\Component\ContextualComponentDependencyBuilder.cs" />
@@ -62,11 +66,8 @@
     <Compile Include="Services\Contextual\GameObject\IGameObjectContextualBuilder.cs" />
     <Compile Include="Services\Contextual\IService.cs" />
     <Compile Include="Services\Contextual\Service.cs" />
-    <Compile Include="Registration\ContainerServiceProvider.cs" />
     <Compile Include="Registration\DependencyTypePair.cs" />
     <Compile Include="Injection\InjecteeLocator.cs" />
-    <Compile Include="Injection\IResolver.cs" />
-    <Compile Include="Registration\IServiceRegister.cs" />
     <Compile Include="Registration\NonBehaviourDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Injection\Injector.cs" />
