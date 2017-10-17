@@ -72,7 +72,11 @@ namespace SceneJect.Common.Tests
 
 			IComponentContext resolveComponent = builder.Build();
 
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(resolveComponent, new Dictionary<Type, Func<IComponentContext, object>>() { { typeof(string), c => sValue }, { typeof(int), c => iValue } });
+			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(resolveComponent, new Dictionary<Type, Func<IComponentContext, object>>()
+			{
+				{ typeof(string), Service<string>.As(c => sValue).ServiceInstance },
+				{ typeof(object), Service<object>.As(c => iValue).ServiceInstance }
+			});
 
 			//act
 			string stringValue = resolver.Resolve<string>();

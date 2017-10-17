@@ -13,7 +13,7 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Dependency resolution service.
 		/// </summary>
-		private IComponentContext Resolver { get; }
+		private IResolver Resolver { get; }
 
 		/// <summary>
 		/// Type of the object.
@@ -26,7 +26,7 @@ namespace SceneJect.Common
 		private object ObjectInstance { get; }
 
 		//TODO: Stronger typing?
-		public Injector(object instance, IComponentContext res)
+		public Injector(object instance, IResolver res)
 		{
 			if (instance == null)
 				throw new ArgumentNullException(nameof(instance), "Cannot inject into a null instance.");

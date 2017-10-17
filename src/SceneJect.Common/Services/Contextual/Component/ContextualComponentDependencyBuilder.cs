@@ -42,7 +42,7 @@ namespace SceneJect.Common
 			TComponentType component = gameObject.AddComponent<TComponentType>();
 
 			//Decorate the current resolver with one that uses the contextual services
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(this.ResolverService, ServiceMap);
+			IResolver resolver = new ContextualDependencyResolverDecorator(this.ResolverService, ServiceMap);
 
 			//Inject using the decorated resolver
 			InjectionStrategy.InjectDependencies<MonoBehaviour>(component, resolver);

@@ -17,7 +17,7 @@ namespace SceneJect.Common.Tests
 		public static void Test_Injector_Ctor_With_Null_Values()
 		{
 			//assert
-			Assert.Throws<ArgumentNullException>(() => new Injector(null, Mock.Of<IComponentContext>()));
+			Assert.Throws<ArgumentNullException>(() => new Injector(null, Mock.Of<IResolver>()));
 			Assert.Throws<ArgumentNullException>(() => new Injector(Mock.Of<IComponentContext>(), null));
 		}
 
@@ -25,10 +25,10 @@ namespace SceneJect.Common.Tests
 		public static void Test_Injector_Throws_When_Resolver_Throws()
 		{
 			//arrange
-			Mock<IComponentContext> resolver = new Mock<IComponentContext>(MockBehavior.Strict);
+			Mock<IResolver> resolver = new Mock<IResolver>(MockBehavior.Strict);
 
 			//set it up to throw on any resolve
-			resolver.Setup(x => x.ResolveComponent(It.IsAny<IComponentRegistration>(), It.IsAny<IEnumerable<Parameter>>()))
+			resolver.Setup(x => x.Resolve(It.IsAny<Type>()))
 				.Throws<Exception>();
 
 			Injector injector = new Injector(new TestClass(), resolver.Object);
@@ -52,7 +52,7 @@ namespace SceneJect.Common.Tests
 
 			TestClass testInstance = new TestClass();
 
-			Injector injector = new Injector(testInstance, resolveComponent);
+			Injector injector = new Injector(testInstance, new AutoFacToIResolverAdapter(resolveComponent));
 
 			//assert
 			Assert.DoesNotThrow(() => injector.Inject());

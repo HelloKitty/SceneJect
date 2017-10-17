@@ -74,9 +74,10 @@ namespace SceneJect.Common
 		{
 			InjecteeLocator<MonoBehaviour> behaviours = new InjecteeLocator<MonoBehaviour>();
 
+			AutoFacToIResolverAdapter resolverAdapter = new AutoFacToIResolverAdapter(BuiltContainerResolver);
 			foreach(MonoBehaviour b in behaviours)
 			{
-				Injector injector = new Injector(b, BuiltContainerResolver);
+				Injector injector = new Injector(b, resolverAdapter);
 
 				injector.Inject();
 			}

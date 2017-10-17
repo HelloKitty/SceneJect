@@ -47,7 +47,7 @@ namespace SceneJect.Common
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
 			//Decorate the current resolver with one that uses the contextual services
-			ContextualDependencyResolverDecorator resolver = new ContextualDependencyResolverDecorator(ResolverService, ServiceMap);
+			IResolver resolver = new ContextualDependencyResolverDecorator(ResolverService, ServiceMap);
 
 			//Inject using the decorated resolver
 			InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);

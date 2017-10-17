@@ -58,12 +58,14 @@
   <ItemGroup>
     <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
     <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
+    <Compile Include="Services\AutoFacToIResolverAdapter.cs" />
     <Compile Include="Services\Contextual\Component\ContextualComponentDependencyBuilder.cs" />
     <Compile Include="Services\Contextual\Component\IComponentContextualBuilder.cs" />
     <Compile Include="Services\Contextual\ContextualDependencyResolverDecorator.cs" />
     <Compile Include="Services\Contextual\GameObject\ContextualGameObjectDependencyBuilder.cs" />
     <Compile Include="Services\Contextual\IContextualServiceRegisterable.cs" />
     <Compile Include="Services\Contextual\GameObject\IGameObjectContextualBuilder.cs" />
+    <Compile Include="Services\Contextual\IResolver.cs" />
     <Compile Include="Services\Contextual\IService.cs" />
     <Compile Include="Services\Contextual\Service.cs" />
     <Compile Include="Registration\DependencyTypePair.cs" />
