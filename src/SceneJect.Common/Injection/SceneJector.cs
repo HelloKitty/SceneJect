@@ -59,11 +59,11 @@ namespace SceneJect.Common
 				nbd.Register(AutofacContainerBuilder);
 
 			//Register the GameObjectFactory and ComponentFactory too
-			AutofacContainerBuilder.Register(context => new DefaultGameObjectFactory(context, new DefaultInjectionStrategy()))
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectFactory(context.Resolve<IComponentContext>(), new DefaultInjectionStrategy()))
 				.As<IGameObjectFactory>()
 				.SingleInstance();
 
-			AutofacContainerBuilder.Register(context => new DefaultGameObjectComponentAttachmentFactory(context, new DefaultInjectionStrategy()))
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectComponentAttachmentFactory(context.Resolve<IComponentContext>(), new DefaultInjectionStrategy()))
 				.As<IGameObjectComponentAttachmentFactory>()
 				.SingleInstance();
 
