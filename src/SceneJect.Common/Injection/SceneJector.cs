@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SceneJect.Common
 {
@@ -20,6 +21,10 @@ namespace SceneJect.Common
 
 		private IContainer BuiltContainerResolver { get; set; }
 
+		[Tooltip("Indicates if SceneJect should look scene-wide for NonBehaviourDependencies.")]
+		[SerializeField]
+		private bool shouldLookSceneWideForDependencies = false;
+
 		private void Awake()
 		{
 			AutofacContainerBuilder = new ContainerBuilder();
@@ -27,11 +32,22 @@ namespace SceneJect.Common
 			//We remove null values from the collections because they are useless
 			TypePairs = TypePairs.Where(x => x != null && x.Behaviour != null && x.SelectedType != null).ToList();
 
-			//Try to gather all the dependency pairs on this type
-			NonBehaviourDependencies = GetComponents<NonBehaviourDependency>()
-				.Concat(NonBehaviourDependencies)
-				.Distinct()
-				.Where(x => x != null).ToList();
+			//If we should look scenewide then find all of the NonBehaviourDependencies
+			if(shouldLookSceneWideForDependencies)
+			{
+				NonBehaviourDependencies = GameObject.FindObjectsOfType<NonBehaviourDependency>()
+					.Concat(NonBehaviourDependencies)
+					.Distinct()
+					.Where(x => x != null).ToList();
+			}
+			else
+			{
+				//Try to gather all the dependency pairs on this type
+				NonBehaviourDependencies = GetComponents<NonBehaviourDependency>()
+					.Concat(NonBehaviourDependencies)
+					.Distinct()
+					.Where(x => x != null).ToList();
+			}
 
 			if (!VerifyTypePairs(TypePairs))
 				throw new InvalidOperationException($"{nameof(SceneJector)} has a malformed {nameof(DependencyTypePair)} registered. Must contain a valid MonoBehaviour and selected Type.");
