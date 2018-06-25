@@ -123,17 +123,21 @@ namespace SceneJect.CustomEditors
 
 			IEnumerable<Type> interfaces = t.GetInterfaces();
 
-			List<Type> types = new List<Type>(interfaces.Count() + 1);
+			List<Type> types = new List<Type>(interfaces.Count() + 2);
 
 			types.AddRange(interfaces);
-
-			Type baseType = t.BaseType;
-			if (baseType != null)
-				types.Add(t.BaseType);
+			types.AddRange(GetInheritanceHierarchy(t));
+			types.Add(t);
 
 			cachedTypeDictionary[t] = types;
 
 			return FindTypes(b);
+		}
+
+		public static IEnumerable<Type> GetInheritanceHierarchy(Type type)
+		{
+			for(var current = type; current != null; current = current.BaseType)
+				yield return current;
 		}
 
 		private void RemoveFromCache([NotNull] Type t)
