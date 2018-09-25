@@ -48,6 +48,11 @@ namespace SceneJect.Common
 				//TODO: Implement FreecraftCore injection lambdas
 				foreach (MemberInfo mi in ObjectType.FieldsAndPropertiesWith(Flags.InstanceAnyVisibility, typeof(InjectAttribute)))
 				{
+					//Skip if the field/prop is marked with OnlyIfNull but is not null.
+					if(mi.Attribute<InjectOnlyIfNullAttribute>() != null)
+						if(mi.Get(ObjectInstance) != null)
+							continue;
+
 					//Based on FreecraftCore's: https://github.com/FreecraftCore/FreecraftCore.Serializer/blob/152fda27c46fcfcaa72d3568c1a591d728773f33/src/FreecraftCore.Serializer.API/Reflection/Serialization/MemberSerializationMediator.cs
 					if (mi is PropertyInfo && !((PropertyInfo)mi).CanWrite)
 					{

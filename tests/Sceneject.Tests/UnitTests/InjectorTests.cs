@@ -38,10 +38,65 @@ namespace SceneJect.Common.Tests
 		}
 
 		[Test]
+		public static void Test_Injector_DoesntSetWhenOnlyIfNullIsUsedWhenNotNull_Values()
+		{
+			//arrange
+			ContainerBuilder builder = new ContainerBuilder();
+			object testObj = new object();
+			builder.RegisterInstance(testObj)
+				.As<System.Object>()
+				.SingleInstance();
+
+			IComponentContext resolveComponent = builder.Build();
+
+			TestWithOnlyIfNull testInstance = new TestWithOnlyIfNull();
+
+			Injector injector = new Injector(testInstance, new AutoFacToIResolverAdapter(resolveComponent));
+
+			//assert
+			Assert.DoesNotThrow(() => injector.Inject());
+			Assert.AreSame(testObj, testInstance.TestObj, "Was null first time.");
+
+			//Now we have to make sure with a new container that we can't set it to a different object
+			ContainerBuilder builder2 = new ContainerBuilder();
+			object testObj2 = new object();
+			builder2.RegisterInstance(testObj2)
+				.As<System.Object>()
+				.SingleInstance();
+
+			IComponentContext resolveComponent2 = builder2.Build();
+
+			Injector injector2 = new Injector(testInstance, new AutoFacToIResolverAdapter(resolveComponent2));
+
+			//assert
+			Assert.DoesNotThrow(() => injector2.Inject());
+			Assert.AreSame(testObj, testInstance.TestObj);
+			Assert.AreNotSame(testObj2, testInstance.TestObj);
+		}
+
+		[Injectee]
+		public class TestWithOnlyIfNull
+		{
+			[InjectOnlyIfNull]
+			[Inject]
+			public object TestObj { get; }
+
+			/// <inheritdoc />
+			public TestWithOnlyIfNull(object testObj)
+			{
+				TestObj = testObj;
+			}
+
+			public TestWithOnlyIfNull()
+			{
+				
+			}
+		}
+
+		[Test]
 		public static void Test_Injector_Sets_Values()
 		{
 			//arrange
-		
 			ContainerBuilder builder = new ContainerBuilder();
 			builder.RegisterInstance(new List<int>() { 1, 2, 3 })
 				.AsSelf()
