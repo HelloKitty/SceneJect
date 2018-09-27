@@ -75,6 +75,7 @@
     <Compile Include="Injection\Injector.cs" />
     <Compile Include="Registration\RegistrationType.cs" />
     <Compile Include="Injection\SceneJector.cs" />
+    <Compile Include="Services\DefaultManualInjectionStrategy.cs" />
     <Compile Include="Services\Factory\Component\DefaultGameObjectComponentAttachmentFactory.cs" />
     <Compile Include="Services\Factory\Component\IComponentAttachmentService.cs" />
     <Compile Include="Services\Factory\Component\IGameObjectComponentAttachmentFactory.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Services\Factory\GameObject\DefaultGameObjectFactory.cs" />
     <Compile Include="Services\Factory\GameObject\IGameObjectBuilder.cs" />
     <Compile Include="Services\Factory\GameObject\IGameObjectFactory.cs" />
+    <Compile Include="Services\IManualInjectionStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -83,6 +83,10 @@ namespace SceneJect.Common
 				.As<IGameObjectComponentAttachmentFactory>()
 				.SingleInstance();
 
+			AutofacContainerBuilder.Register(context => new DefaultManualInjectionStrategy(context.Resolve<IComponentContext>()))
+				.As<IManualInjectionStrategy>()
+				.SingleInstance();
+
 			BuiltContainerResolver = AutofacContainerBuilder.Build();
 		}
 
