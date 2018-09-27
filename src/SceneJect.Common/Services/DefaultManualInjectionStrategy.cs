@@ -17,8 +17,6 @@ namespace SceneJect
 		/// </summary>
 		private IComponentContext ResolverService { get; }
 
-		private IInjectionStrategy InjectionStrategy { get; }
-
 		/// <inheritdoc />
 		public DefaultManualInjectionStrategy([NotNull] IComponentContext resolverService)
 		{
@@ -33,7 +31,8 @@ namespace SceneJect
 			if(behaviours.Count == 0)
 				return;
 
-			InjectionStrategy.InjectDependencies<MonoBehaviour>(behaviours, ResolverService);
+			//TODO: Expose this as a depedency
+			new DefaultInjectionStrategy().InjectDependencies<MonoBehaviour>(behaviours, ResolverService);
 		}
 	}
 }
