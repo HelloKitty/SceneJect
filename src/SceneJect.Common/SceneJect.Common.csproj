@@ -1,105 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{35AC7DB7-7233-47E9-A909-907879356CC1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SceneJect.Common</RootNamespace>
-    <AssemblyName>SceneJect.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\fasterflect.2.1.3\lib\net35\Fasterflect.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\lib\Unity\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Injection\Strategy\DefaultInjectionStrategy.cs" />
-    <Compile Include="Injection\Strategy\IInjectionStrategy.cs" />
-    <Compile Include="Services\AutoFacToIResolverAdapter.cs" />
-    <Compile Include="Services\Contextual\Component\ContextualComponentDependencyBuilder.cs" />
-    <Compile Include="Services\Contextual\Component\IComponentContextualBuilder.cs" />
-    <Compile Include="Services\Contextual\ContextualDependencyResolverDecorator.cs" />
-    <Compile Include="Services\Contextual\GameObject\ContextualGameObjectDependencyBuilder.cs" />
-    <Compile Include="Services\Contextual\IContextualServiceRegisterable.cs" />
-    <Compile Include="Services\Contextual\GameObject\IGameObjectContextualBuilder.cs" />
-    <Compile Include="Services\Contextual\IResolver.cs" />
-    <Compile Include="Services\Contextual\IService.cs" />
-    <Compile Include="Services\Contextual\Service.cs" />
-    <Compile Include="Registration\DependencyTypePair.cs" />
-    <Compile Include="Injection\InjecteeLocator.cs" />
-    <Compile Include="Registration\NonBehaviourDependency.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Injection\Injector.cs" />
-    <Compile Include="Registration\RegistrationType.cs" />
-    <Compile Include="Injection\SceneJector.cs" />
-    <Compile Include="Services\DefaultManualInjectionStrategy.cs" />
-    <Compile Include="Services\Factory\Component\DefaultGameObjectComponentAttachmentFactory.cs" />
-    <Compile Include="Services\Factory\Component\IComponentAttachmentService.cs" />
-    <Compile Include="Services\Factory\Component\IGameObjectComponentAttachmentFactory.cs" />
-    <Compile Include="Services\Factory\DepedencyInjectionFactoryService.cs" />
-    <Compile Include="Services\Factory\GameObject\DefaultGameObjectFactory.cs" />
-    <Compile Include="Services\Factory\GameObject\IGameObjectBuilder.cs" />
-    <Compile Include="Services\Factory\GameObject\IGameObjectFactory.cs" />
-    <Compile Include="Services\IManualInjectionStrategy.cs" />
+    <PackageReference Include="Autofac">
+      <Version>4.6.2</Version>
+    </PackageReference>
+    <PackageReference Include="fasterflect" Version="2.1.3" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SceneJect.Metadata\SceneJect.Metadata.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SceneJect.Metadata\SceneJect.Metadata.csproj">
-      <Project>{5c60a280-819c-4c4f-8a91-b0f41069dffc}</Project>
-      <Name>SceneJect.Metadata</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
