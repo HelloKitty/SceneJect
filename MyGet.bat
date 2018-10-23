@@ -1,2 +1,2 @@
-%NUGET% restore SceneJect.sln -NoCache -NonInteractive
-msbuild SceneJect.sln /p:Configuration=Release
+dotnet restore SceneJect.sln --configfile Nuget.config
+dotnet build SceneJect.sln --configuration Release
