@@ -15,7 +15,7 @@ namespace SceneJect.Common
 		/// </summary>
 		private IDictionary<Type, Func<IComponentContext, object>> ServiceMap { get; }
 
-		public ContextualGameObjectDependencyBuilder(IComponentContext defaultResolver, IInjectionStrategy injectionStrategy)
+		public ContextualGameObjectDependencyBuilder(ILifetimeScope defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
 			ServiceMap = new Dictionary<Type, Func<IComponentContext, object>>(5);
@@ -46,11 +46,21 @@ namespace SceneJect.Common
 
 			GameObject obj = GameObject.Instantiate(prefab, position, rotation) as GameObject;
 
-			//Decorate the current resolver with one that uses the contextual services
-			IResolver resolver = new ContextualDependencyResolverDecorator(ResolverService, ServiceMap);
+			using(var newLifetimeScope = ResolverService.BeginLifetimeScope(builder =>
+			{
+				//TODO: This could be slow, any way to speed this up?
+				foreach(var entries in ServiceMap)
+					builder.RegisterInstance(entries.Value(ResolverService))
+						.As(entries.Key)
+						.SingleInstance();
+			}))
+			{
+				//Decorate the current resolver with one that uses the contextual services
+				IResolver resolver = new ContextualDependencyResolverDecorator(newLifetimeScope, ServiceMap);
 
-			//Inject using the decorated resolver
-			InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
+				//Inject using the decorated resolver
+				InjectionStrategy.InjectDependencies<MonoBehaviour>(InjecteeLocator<MonoBehaviour>.Create(obj), resolver);
+			}
 
 			return obj;
 		}

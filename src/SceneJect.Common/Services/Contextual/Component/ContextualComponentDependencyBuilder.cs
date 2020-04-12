@@ -16,7 +16,7 @@ namespace SceneJect.Common
 		/// </summary>
 		private IDictionary<Type, Func<IComponentContext, object>> ServiceMap { get; }
 
-		public ContextualComponentDependencyBuilder([NotNull] IComponentContext defaultResolver, IInjectionStrategy injectionStrategy)
+		public ContextualComponentDependencyBuilder([NotNull] ILifetimeScope defaultResolver, IInjectionStrategy injectionStrategy)
 			: base(defaultResolver, injectionStrategy)
 		{
 			ServiceMap = new Dictionary<Type, Func<IComponentContext, object>>(5);

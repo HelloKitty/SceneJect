@@ -11,14 +11,14 @@ namespace SceneJect.Common
 		/// <summary>
 		/// Service for resolving dependencies.
 		/// </summary>
-		protected IComponentContext ResolverService { get; }
+		protected ILifetimeScope ResolverService { get; }
 
 		/// <summary>
 		/// Strategy for injection.
 		/// </summary>
 		protected IInjectionStrategy InjectionStrategy { get; }
 
-		protected DepedencyInjectionFactoryService(IComponentContext resolver, IInjectionStrategy injectionStrat)
+		protected DepedencyInjectionFactoryService(ILifetimeScope resolver, IInjectionStrategy injectionStrat)
 		{
 			if (resolver == null)
 				throw new ArgumentNullException(nameof(resolver), $"Provided {nameof(IComponentContext)} service provided is null.");

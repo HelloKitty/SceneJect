@@ -10,7 +10,7 @@ namespace SceneJect.Common
 {
 	public class DefaultGameObjectFactory : DepedencyInjectionFactoryService, IGameObjectFactory
 	{
-		public DefaultGameObjectFactory(IComponentContext resolver, IInjectionStrategy injectionStrat)
+		public DefaultGameObjectFactory(ILifetimeScope resolver, IInjectionStrategy injectionStrat)
 			: base(resolver, injectionStrat)
 		{
 
