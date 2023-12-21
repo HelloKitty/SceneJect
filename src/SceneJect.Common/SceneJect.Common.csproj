@@ -4,6 +4,20 @@
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Version>3.0.32</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <Authors>Andrew Blakely, Glader</Authors>
+    <Product>SceneJect</Product>
+    <Description>SceneJect is a Unity3D scene-based dependency injection library that relies on third party IoC container libraries.</Description>
+    <Copyright>Andrew Blakely</Copyright>
+    <PackageProjectUrl>https://github.com/helloKitty/Sceneject</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/helloKitty/Sceneject</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>SceneJect IoC Dependency Injection IoCContainer Unity Unity3D Scene Ject</PackageTags>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>..\..\lib\Unity\UnityEngine.dll</HintPath>
