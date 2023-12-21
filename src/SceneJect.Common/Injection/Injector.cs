@@ -60,9 +60,13 @@ namespace SceneJect.Common
 						//TODO: Unity2018 has issues with this FasterFlect PlatformNotSupportedException: Operation is not supported on this platform.
 						//If it's a property and it's a readonly one we'll try to grab the backing field
 						//ObjectInstance.SetFieldValue($"<{mi.Name}>k__BackingField", Resolver.Resolve(mi.Type()));
-						FieldInfo field = ObjectType.GetField($"<{mi.Name}>k__BackingField", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField);
-						if(field == null)
+						FieldInfo field = ObjectType.Field($"<{mi.Name}>k__BackingField", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField);
+						if (field == null)
+						{
+							// It's possible the backing field is actually in base types
+
 							throw new InvalidOperationException($"Unable to get backing field for {mi.Name}");
+						}
 
 						field.SetValue(ObjectInstance, Resolver.Resolve(mi.Type()), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetField, null, CultureInfo.CurrentCulture);
 						//ObjectInstance.SetFieldValue($"<{mi.Name}>k__BackingField", Resolver.Resolve(mi.Type()));
