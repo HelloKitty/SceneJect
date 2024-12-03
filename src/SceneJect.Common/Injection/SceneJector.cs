@@ -102,5 +102,13 @@ namespace SceneJect.Common
 				injector.Inject();
 			}
 		}
+
+		private void OnDestroy()
+		{
+			TypePairs?.Clear();
+			NonBehaviourDependencies?.Clear();
+			AutofacContainerBuilder = null;
+			BuiltContainerResolver?.Dispose();
+		}
 	}
 }
