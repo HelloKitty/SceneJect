@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace SceneJect.Common
@@ -20,6 +21,8 @@ namespace SceneJect.Common
 		private Autofac.ContainerBuilder AutofacContainerBuilder { get; set; }
 
 		private IContainer BuiltContainerResolver { get; set; }
+
+		private ILifetimeScope DependencyScope { get; set; }
 
 		[Tooltip("Indicates if SceneJect should look scene-wide for NonBehaviourDependencies.")]
 		[SerializeField]
@@ -75,30 +78,35 @@ namespace SceneJect.Common
 				nbd.Register(AutofacContainerBuilder);
 
 			//Register the GameObjectFactory and ComponentFactory too
-			AutofacContainerBuilder.Register(context => new DefaultGameObjectFactory(context.Resolve<ILifetimeScope>(), new DefaultInjectionStrategy()))
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectFactory(GetLifetimeScope(), new DefaultInjectionStrategy()))
 				.As<IGameObjectFactory>()
 				.SingleInstance();
 
-			AutofacContainerBuilder.Register(context => new DefaultGameObjectComponentAttachmentFactory(context.Resolve<ILifetimeScope>(), new DefaultInjectionStrategy()))
+			AutofacContainerBuilder.Register(context => new DefaultGameObjectComponentAttachmentFactory(GetLifetimeScope(), new DefaultInjectionStrategy()))
 				.As<IGameObjectComponentAttachmentFactory>()
 				.SingleInstance();
 
-			AutofacContainerBuilder.Register(context => new DefaultManualInjectionStrategy(context.Resolve<IComponentContext>()))
+			AutofacContainerBuilder.Register(context => new DefaultManualInjectionStrategy(GetLifetimeScope()))
 				.As<IManualInjectionStrategy>()
 				.SingleInstance();
 
 			BuiltContainerResolver = AutofacContainerBuilder.Build();
+			DependencyScope = BuiltContainerResolver.BeginLifetimeScope();
+		}
+
+		private ILifetimeScope GetLifetimeScope()
+		{
+			return DependencyScope;
 		}
 
 		private void InjectDependencies()
 		{
 			InjecteeLocator<MonoBehaviour> behaviours = new InjecteeLocator<MonoBehaviour>();
 
-			AutoFacToIResolverAdapter resolverAdapter = new AutoFacToIResolverAdapter(BuiltContainerResolver);
+			AutoFacToIResolverAdapter resolverAdapter = new AutoFacToIResolverAdapter(DependencyScope);
 			foreach(MonoBehaviour b in behaviours)
 			{
 				Injector injector = new Injector(b, resolverAdapter);
-
 				injector.Inject();
 			}
 		}
@@ -108,7 +116,26 @@ namespace SceneJect.Common
 			TypePairs?.Clear();
 			NonBehaviourDependencies?.Clear();
 			AutofacContainerBuilder = null;
-			BuiltContainerResolver?.Dispose();
+
+			try
+			{
+				DependencyScope?.Dispose();
+				DependencyScope = null;
+			}
+			catch(Exception e)
+			{
+				Debug.LogError($"Failed to dispose of dependency scope.");
+			}
+
+			try
+			{
+				BuiltContainerResolver?.Dispose();
+				BuiltContainerResolver = null;
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Failed to dispose of built resolver.");
+			}
 		}
 	}
 }
